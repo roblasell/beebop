@@ -1,0 +1,507 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D4BA01801CBC082E0005B9C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA017F1CBC082E0005B9C1 /* AppDelegate.swift */; };
+		D4BA01821CBC082E0005B9C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA01811CBC082E0005B9C1 /* ViewController.swift */; };
+		D4BA01851CBC082E0005B9C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4BA01831CBC082E0005B9C1 /* Main.storyboard */; };
+		D4BA01871CBC082E0005B9C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4BA01861CBC082E0005B9C1 /* Assets.xcassets */; };
+		D4BA018A1CBC082E0005B9C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4BA01881CBC082E0005B9C1 /* LaunchScreen.storyboard */; };
+		D4BA01951CBC082E0005B9C1 /* BeeBopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA01941CBC082E0005B9C1 /* BeeBopTests.swift */; };
+		D4BA01A01CBC082E0005B9C1 /* BeeBopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA019F1CBC082E0005B9C1 /* BeeBopUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D4BA01911CBC082E0005B9C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4BA01741CBC082D0005B9C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4BA017B1CBC082E0005B9C1;
+			remoteInfo = BeeBop;
+		};
+		D4BA019C1CBC082E0005B9C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4BA01741CBC082D0005B9C1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D4BA017B1CBC082E0005B9C1;
+			remoteInfo = BeeBop;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D4BA017C1CBC082E0005B9C1 /* BeeBop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeeBop.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4BA017F1CBC082E0005B9C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D4BA01811CBC082E0005B9C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D4BA01841CBC082E0005B9C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D4BA01861CBC082E0005B9C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D4BA01891CBC082E0005B9C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D4BA018B1CBC082E0005B9C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4BA01901CBC082E0005B9C1 /* BeeBopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeeBopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4BA01941CBC082E0005B9C1 /* BeeBopTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeeBopTests.swift; sourceTree = "<group>"; };
+		D4BA01961CBC082E0005B9C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4BA019B1CBC082E0005B9C1 /* BeeBopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeeBopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4BA019F1CBC082E0005B9C1 /* BeeBopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeeBopUITests.swift; sourceTree = "<group>"; };
+		D4BA01A11CBC082E0005B9C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D4BA01791CBC082E0005B9C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BA018D1CBC082E0005B9C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BA01981CBC082E0005B9C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D4BA01731CBC082D0005B9C1 = {
+			isa = PBXGroup;
+			children = (
+				D4BA017E1CBC082E0005B9C1 /* BeeBop */,
+				D4BA01931CBC082E0005B9C1 /* BeeBopTests */,
+				D4BA019E1CBC082E0005B9C1 /* BeeBopUITests */,
+				D4BA017D1CBC082E0005B9C1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D4BA017D1CBC082E0005B9C1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4BA017C1CBC082E0005B9C1 /* BeeBop.app */,
+				D4BA01901CBC082E0005B9C1 /* BeeBopTests.xctest */,
+				D4BA019B1CBC082E0005B9C1 /* BeeBopUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4BA017E1CBC082E0005B9C1 /* BeeBop */ = {
+			isa = PBXGroup;
+			children = (
+				D4BA017F1CBC082E0005B9C1 /* AppDelegate.swift */,
+				D4BA01811CBC082E0005B9C1 /* ViewController.swift */,
+				D4BA01831CBC082E0005B9C1 /* Main.storyboard */,
+				D4BA01861CBC082E0005B9C1 /* Assets.xcassets */,
+				D4BA01881CBC082E0005B9C1 /* LaunchScreen.storyboard */,
+				D4BA018B1CBC082E0005B9C1 /* Info.plist */,
+			);
+			path = BeeBop;
+			sourceTree = "<group>";
+		};
+		D4BA01931CBC082E0005B9C1 /* BeeBopTests */ = {
+			isa = PBXGroup;
+			children = (
+				D4BA01941CBC082E0005B9C1 /* BeeBopTests.swift */,
+				D4BA01961CBC082E0005B9C1 /* Info.plist */,
+			);
+			path = BeeBopTests;
+			sourceTree = "<group>";
+		};
+		D4BA019E1CBC082E0005B9C1 /* BeeBopUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D4BA019F1CBC082E0005B9C1 /* BeeBopUITests.swift */,
+				D4BA01A11CBC082E0005B9C1 /* Info.plist */,
+			);
+			path = BeeBopUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D4BA017B1CBC082E0005B9C1 /* BeeBop */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4BA01A41CBC082E0005B9C1 /* Build configuration list for PBXNativeTarget "BeeBop" */;
+			buildPhases = (
+				D4BA01781CBC082E0005B9C1 /* Sources */,
+				D4BA01791CBC082E0005B9C1 /* Frameworks */,
+				D4BA017A1CBC082E0005B9C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BeeBop;
+			productName = BeeBop;
+			productReference = D4BA017C1CBC082E0005B9C1 /* BeeBop.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D4BA018F1CBC082E0005B9C1 /* BeeBopTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4BA01A71CBC082E0005B9C1 /* Build configuration list for PBXNativeTarget "BeeBopTests" */;
+			buildPhases = (
+				D4BA018C1CBC082E0005B9C1 /* Sources */,
+				D4BA018D1CBC082E0005B9C1 /* Frameworks */,
+				D4BA018E1CBC082E0005B9C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4BA01921CBC082E0005B9C1 /* PBXTargetDependency */,
+			);
+			name = BeeBopTests;
+			productName = BeeBopTests;
+			productReference = D4BA01901CBC082E0005B9C1 /* BeeBopTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D4BA019A1CBC082E0005B9C1 /* BeeBopUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4BA01AA1CBC082E0005B9C1 /* Build configuration list for PBXNativeTarget "BeeBopUITests" */;
+			buildPhases = (
+				D4BA01971CBC082E0005B9C1 /* Sources */,
+				D4BA01981CBC082E0005B9C1 /* Frameworks */,
+				D4BA01991CBC082E0005B9C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D4BA019D1CBC082E0005B9C1 /* PBXTargetDependency */,
+			);
+			name = BeeBopUITests;
+			productName = BeeBopUITests;
+			productReference = D4BA019B1CBC082E0005B9C1 /* BeeBopUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D4BA01741CBC082D0005B9C1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = Tufts;
+				TargetAttributes = {
+					D4BA017B1CBC082E0005B9C1 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					D4BA018F1CBC082E0005B9C1 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = D4BA017B1CBC082E0005B9C1;
+					};
+					D4BA019A1CBC082E0005B9C1 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = D4BA017B1CBC082E0005B9C1;
+					};
+				};
+			};
+			buildConfigurationList = D4BA01771CBC082D0005B9C1 /* Build configuration list for PBXProject "BeeBop" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D4BA01731CBC082D0005B9C1;
+			productRefGroup = D4BA017D1CBC082E0005B9C1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4BA017B1CBC082E0005B9C1 /* BeeBop */,
+				D4BA018F1CBC082E0005B9C1 /* BeeBopTests */,
+				D4BA019A1CBC082E0005B9C1 /* BeeBopUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D4BA017A1CBC082E0005B9C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BA018A1CBC082E0005B9C1 /* LaunchScreen.storyboard in Resources */,
+				D4BA01871CBC082E0005B9C1 /* Assets.xcassets in Resources */,
+				D4BA01851CBC082E0005B9C1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BA018E1CBC082E0005B9C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BA01991CBC082E0005B9C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D4BA01781CBC082E0005B9C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BA01821CBC082E0005B9C1 /* ViewController.swift in Sources */,
+				D4BA01801CBC082E0005B9C1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BA018C1CBC082E0005B9C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BA01951CBC082E0005B9C1 /* BeeBopTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D4BA01971CBC082E0005B9C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D4BA01A01CBC082E0005B9C1 /* BeeBopUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D4BA01921CBC082E0005B9C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4BA017B1CBC082E0005B9C1 /* BeeBop */;
+			targetProxy = D4BA01911CBC082E0005B9C1 /* PBXContainerItemProxy */;
+		};
+		D4BA019D1CBC082E0005B9C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D4BA017B1CBC082E0005B9C1 /* BeeBop */;
+			targetProxy = D4BA019C1CBC082E0005B9C1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D4BA01831CBC082E0005B9C1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4BA01841CBC082E0005B9C1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D4BA01881CBC082E0005B9C1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D4BA01891CBC082E0005B9C1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D4BA01A21CBC082E0005B9C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D4BA01A31CBC082E0005B9C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D4BA01A51CBC082E0005B9C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BeeBop/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBop;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D4BA01A61CBC082E0005B9C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = BeeBop/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBop;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D4BA01A81CBC082E0005B9C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BeeBopTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBopTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeeBop.app/BeeBop";
+			};
+			name = Debug;
+		};
+		D4BA01A91CBC082E0005B9C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = BeeBopTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBopTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BeeBop.app/BeeBop";
+			};
+			name = Release;
+		};
+		D4BA01AB1CBC082E0005B9C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = BeeBopUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBopUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = BeeBop;
+			};
+			name = Debug;
+		};
+		D4BA01AC1CBC082E0005B9C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = BeeBopUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBopUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = BeeBop;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D4BA01771CBC082D0005B9C1 /* Build configuration list for PBXProject "BeeBop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BA01A21CBC082E0005B9C1 /* Debug */,
+				D4BA01A31CBC082E0005B9C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4BA01A41CBC082E0005B9C1 /* Build configuration list for PBXNativeTarget "BeeBop" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BA01A51CBC082E0005B9C1 /* Debug */,
+				D4BA01A61CBC082E0005B9C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D4BA01A71CBC082E0005B9C1 /* Build configuration list for PBXNativeTarget "BeeBopTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BA01A81CBC082E0005B9C1 /* Debug */,
+				D4BA01A91CBC082E0005B9C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D4BA01AA1CBC082E0005B9C1 /* Build configuration list for PBXNativeTarget "BeeBopUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BA01AB1CBC082E0005B9C1 /* Debug */,
+				D4BA01AC1CBC082E0005B9C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D4BA01741CBC082D0005B9C1 /* Project object */;
+}
