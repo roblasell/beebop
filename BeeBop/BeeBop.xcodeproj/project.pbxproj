@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4A4A4DA1CC3F20000CE7F4A /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A4A4D91CC3F20000CE7F4A /* GraphView.swift */; };
+		D4A4A4DE1CC3F9C500CE7F4A /* spongebob.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A4A4DD1CC3F9C500CE7F4A /* spongebob.mp3 */; };
 		D4BA01801CBC082E0005B9C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA017F1CBC082E0005B9C1 /* AppDelegate.swift */; };
 		D4BA01821CBC082E0005B9C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA01811CBC082E0005B9C1 /* ViewController.swift */; };
 		D4BA01851CBC082E0005B9C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4BA01831CBC082E0005B9C1 /* Main.storyboard */; };
@@ -14,6 +16,11 @@
 		D4BA018A1CBC082E0005B9C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4BA01881CBC082E0005B9C1 /* LaunchScreen.storyboard */; };
 		D4BA01951CBC082E0005B9C1 /* BeeBopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA01941CBC082E0005B9C1 /* BeeBopTests.swift */; };
 		D4BA01A01CBC082E0005B9C1 /* BeeBopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA019F1CBC082E0005B9C1 /* BeeBopUITests.swift */; };
+		D4BA01AE1CBC13C10005B9C1 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA01AD1CBC13C10005B9C1 /* SettingsTableViewController.swift */; };
+		D4BA01B01CBC1ADF0005B9C1 /* DataPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA01AF1CBC1ADF0005B9C1 /* DataPageViewController.swift */; };
+		D4BA01B21CBC1D600005B9C1 /* SessionsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA01B11CBC1D600005B9C1 /* SessionsPageViewController.swift */; };
+		D4BA01B41CBC25B70005B9C1 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA01B31CBC25B70005B9C1 /* DateViewController.swift */; };
+		D4BA01B61CBC25C30005B9C1 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA01B51CBC25C30005B9C1 /* SongViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D4A4A4D91CC3F20000CE7F4A /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		D4A4A4DD1CC3F9C500CE7F4A /* spongebob.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = spongebob.mp3; sourceTree = "<group>"; };
 		D4BA017C1CBC082E0005B9C1 /* BeeBop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeeBop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4BA017F1CBC082E0005B9C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4BA01811CBC082E0005B9C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +56,12 @@
 		D4BA019B1CBC082E0005B9C1 /* BeeBopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeeBopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4BA019F1CBC082E0005B9C1 /* BeeBopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeeBopUITests.swift; sourceTree = "<group>"; };
 		D4BA01A11CBC082E0005B9C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4BA01AD1CBC13C10005B9C1 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		D4BA01AF1CBC1ADF0005B9C1 /* DataPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataPageViewController.swift; path = BeeBop/DataPageViewController.swift; sourceTree = SOURCE_ROOT; };
+		D4BA01B11CBC1D600005B9C1 /* SessionsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionsPageViewController.swift; sourceTree = "<group>"; };
+		D4BA01B31CBC25B70005B9C1 /* DateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
+		D4BA01B51CBC25C30005B9C1 /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; };
+		D4EDD56C1CC5701F00B058CE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +118,13 @@
 				D4BA01861CBC082E0005B9C1 /* Assets.xcassets */,
 				D4BA01881CBC082E0005B9C1 /* LaunchScreen.storyboard */,
 				D4BA018B1CBC082E0005B9C1 /* Info.plist */,
+				D4BA01AF1CBC1ADF0005B9C1 /* DataPageViewController.swift */,
+				D4BA01AD1CBC13C10005B9C1 /* SettingsTableViewController.swift */,
+				D4BA01B11CBC1D600005B9C1 /* SessionsPageViewController.swift */,
+				D4BA01B31CBC25B70005B9C1 /* DateViewController.swift */,
+				D4BA01B51CBC25C30005B9C1 /* SongViewController.swift */,
+				D4A4A4D91CC3F20000CE7F4A /* GraphView.swift */,
+				D4A4A4DD1CC3F9C500CE7F4A /* spongebob.mp3 */,
 			);
 			path = BeeBop;
 			sourceTree = "<group>";
@@ -231,6 +253,7 @@
 			files = (
 				D4BA018A1CBC082E0005B9C1 /* LaunchScreen.storyboard in Resources */,
 				D4BA01871CBC082E0005B9C1 /* Assets.xcassets in Resources */,
+				D4A4A4DE1CC3F9C500CE7F4A /* spongebob.mp3 in Resources */,
 				D4BA01851CBC082E0005B9C1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,7 +280,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4BA01821CBC082E0005B9C1 /* ViewController.swift in Sources */,
+				D4BA01B01CBC1ADF0005B9C1 /* DataPageViewController.swift in Sources */,
 				D4BA01801CBC082E0005B9C1 /* AppDelegate.swift in Sources */,
+				D4BA01B21CBC1D600005B9C1 /* SessionsPageViewController.swift in Sources */,
+				D4BA01B41CBC25B70005B9C1 /* DateViewController.swift in Sources */,
+				D4BA01AE1CBC13C10005B9C1 /* SettingsTableViewController.swift in Sources */,
+				D4BA01B61CBC25C30005B9C1 /* SongViewController.swift in Sources */,
+				D4A4A4DA1CC3F20000CE7F4A /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +326,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D4BA01841CBC082E0005B9C1 /* Base */,
+				D4EDD56C1CC5701F00B058CE /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -402,9 +432,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BeeBop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -413,9 +445,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = BeeBop/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -484,6 +518,7 @@
 				D4BA01A61CBC082E0005B9C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D4BA01A71CBC082E0005B9C1 /* Build configuration list for PBXNativeTarget "BeeBopTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +527,7 @@
 				D4BA01A91CBC082E0005B9C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D4BA01AA1CBC082E0005B9C1 /* Build configuration list for PBXNativeTarget "BeeBopUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +536,7 @@
 				D4BA01AC1CBC082E0005B9C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

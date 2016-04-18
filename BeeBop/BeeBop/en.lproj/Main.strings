@@ -1,0 +1,93 @@
+
+/* Class = "UILabel"; text = "Active Drums"; ObjectID = "4Z2-FX-l5m"; */
+"4Z2-FX-l5m.text" = "Active Drums";
+
+/* Class = "UILabel"; text = "W"; ObjectID = "BLw-ih-Qg9"; */
+"BLw-ih-Qg9.text" = "W";
+
+/* Class = "UILabel"; text = "M"; ObjectID = "Cz1-RQ-beT"; */
+"Cz1-RQ-beT.text" = "M";
+
+/* Class = "UINavigationItem"; title = "BeeBop"; ObjectID = "Gy1-DZ-zAt"; */
+"Gy1-DZ-zAt.title" = "BeeBop";
+
+/* Class = "UILabel"; text = "Hit Force"; ObjectID = "H81-Vq-IRD"; */
+"H81-Vq-IRD.text" = "Hit Force";
+
+/* Class = "UIBarButtonItem"; title = "Settings"; ObjectID = "M1E-GB-Orr"; */
+"M1E-GB-Orr.title" = "Settings";
+
+/* Class = "UINavigationItem"; title = "Data"; ObjectID = "OGA-oN-Thf"; */
+"OGA-oN-Thf.title" = "Data";
+
+/* Class = "UISegmentedControl"; Ofw-vB-R7s.segmentTitles[0] = "By Date"; ObjectID = "Ofw-vB-R7s"; */
+"Ofw-vB-R7s.segmentTitles[0]" = "By Date";
+
+/* Class = "UISegmentedControl"; Ofw-vB-R7s.segmentTitles[1] = "By Song"; ObjectID = "Ofw-vB-R7s"; */
+"Ofw-vB-R7s.segmentTitles[1]" = "By Song";
+
+/* Class = "UILabel"; text = "S"; ObjectID = "RLN-Sg-b3h"; */
+"RLN-Sg-b3h.text" = "S";
+
+/* Class = "UILabel"; text = "Time Between Cues"; ObjectID = "RWU-SP-pHv"; */
+"RWU-SP-pHv.text" = "Time Between Cues";
+
+/* Class = "UIBarButtonItem"; title = "Data"; ObjectID = "SVw-Lo-wFF"; */
+"SVw-Lo-wFF.title" = "Data";
+
+/* Class = "UISegmentedControl"; UbI-WV-a8V.segmentTitles[0] = "Month"; ObjectID = "UbI-WV-a8V"; */
+"UbI-WV-a8V.segmentTitles[0]" = "Month";
+
+/* Class = "UISegmentedControl"; UbI-WV-a8V.segmentTitles[1] = "Week"; ObjectID = "UbI-WV-a8V"; */
+"UbI-WV-a8V.segmentTitles[1]" = "Week";
+
+/* Class = "UISegmentedControl"; UbI-WV-a8V.segmentTitles[2] = "Day"; ObjectID = "UbI-WV-a8V"; */
+"UbI-WV-a8V.segmentTitles[2]" = "Day";
+
+/* Class = "UILabel"; text = "T"; ObjectID = "WCE-BI-ow0"; */
+"WCE-BI-ow0.text" = "T";
+
+/* Class = "UILabel"; text = "Song"; ObjectID = "Wou-ll-UMf"; */
+"Wou-ll-UMf.text" = "Song";
+
+/* Class = "UINavigationItem"; title = "Sessions"; ObjectID = "XD2-rF-QIe"; */
+"XD2-rF-QIe.title" = "Sessions";
+
+/* Class = "UIBarButtonItem"; title = "Sessions"; ObjectID = "Zbm-jV-XzD"; */
+"Zbm-jV-XzD.title" = "Sessions";
+
+/* Class = "UILabel"; text = "Handedness"; ObjectID = "Zja-eZ-KUM"; */
+"Zja-eZ-KUM.text" = "Handedness";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "bOn-J7-qPo"; */
+"bOn-J7-qPo.text" = "Date";
+
+/* Class = "UILabel"; text = "Cue Type"; ObjectID = "cs4-3n-7zU"; */
+"cs4-3n-7zU.text" = "Cue Type";
+
+/* Class = "UILabel"; text = "TH"; ObjectID = "e2j-VK-h32"; */
+"e2j-VK-h32.text" = "TH";
+
+/* Class = "UILabel"; text = "Hit Force"; ObjectID = "gtf-jf-4u8"; */
+"gtf-jf-4u8.text" = "Hit Force";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "hni-iC-v4U"; */
+"hni-iC-v4U.title" = "Settings";
+
+/* Class = "UINavigationItem"; title = "Date"; ObjectID = "iz7-h2-BCD"; */
+"iz7-h2-BCD.title" = "Date";
+
+/* Class = "UINavigationItem"; title = "Song"; ObjectID = "sos-Go-YS5"; */
+"sos-Go-YS5.title" = "Song";
+
+/* Class = "UILabel"; text = "Pick a Song:"; ObjectID = "tB8-zg-gEm"; */
+"tB8-zg-gEm.text" = "Pick a Song:";
+
+/* Class = "UIButton"; normalTitle = "Start Song"; ObjectID = "uvo-VY-Zd2"; */
+"uvo-VY-Zd2.normalTitle" = "Start Song";
+
+/* Class = "UILabel"; text = "F"; ObjectID = "y1N-UX-IDe"; */
+"y1N-UX-IDe.text" = "F";
+
+/* Class = "UILabel"; text = "SU"; ObjectID = "zMT-qQ-0RG"; */
+"zMT-qQ-0RG.text" = "SU";
