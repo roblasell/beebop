@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D463DF4A1CCC28F800E75DDE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D463DF491CCC28F800E75DDE /* MBProgressHUD.m */; };
+		D463DF501CCC29D200E75DDE /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D463DF4C1CCC29D200E75DDE /* ScannerViewController.swift */; };
+		D463DF511CCC29D200E75DDE /* BTCommunicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D463DF4D1CCC29D200E75DDE /* BTCommunicationViewController.swift */; };
+		D463DF521CCC29D200E75DDE /* DZBluetoothSerialHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D463DF4E1CCC29D200E75DDE /* DZBluetoothSerialHandler.swift */; };
+		D463DF571CCE0FF900E75DDE /* LevelSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D463DF561CCE0FF900E75DDE /* LevelSettingsViewController.swift */; };
+		D463DF5D1CCE13E800E75DDE /* ActiveDrumsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D463DF5C1CCE13E800E75DDE /* ActiveDrumsTableViewController.swift */; };
 		D4A4A4DA1CC3F20000CE7F4A /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A4A4D91CC3F20000CE7F4A /* GraphView.swift */; };
 		D4A4A4DE1CC3F9C500CE7F4A /* spongebob.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4A4A4DD1CC3F9C500CE7F4A /* spongebob.mp3 */; };
 		D4BA01801CBC082E0005B9C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BA017F1CBC082E0005B9C1 /* AppDelegate.swift */; };
@@ -41,6 +47,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D463DF471CCC28F700E75DDE /* BeeBop-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeeBop-Bridging-Header.h"; sourceTree = "<group>"; };
+		D463DF481CCC28F800E75DDE /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		D463DF491CCC28F800E75DDE /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		D463DF4C1CCC29D200E75DDE /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		D463DF4D1CCC29D200E75DDE /* BTCommunicationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCommunicationViewController.swift; sourceTree = "<group>"; };
+		D463DF4E1CCC29D200E75DDE /* DZBluetoothSerialHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DZBluetoothSerialHandler.swift; sourceTree = "<group>"; };
+		D463DF561CCE0FF900E75DDE /* LevelSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSettingsViewController.swift; sourceTree = "<group>"; };
+		D463DF5C1CCE13E800E75DDE /* ActiveDrumsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveDrumsTableViewController.swift; sourceTree = "<group>"; };
 		D4A4A4D91CC3F20000CE7F4A /* GraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		D4A4A4DD1CC3F9C500CE7F4A /* spongebob.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = spongebob.mp3; sourceTree = "<group>"; };
 		D4BA017C1CBC082E0005B9C1 /* BeeBop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeeBop.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,17 +128,25 @@
 			children = (
 				D4BA017F1CBC082E0005B9C1 /* AppDelegate.swift */,
 				D4BA01811CBC082E0005B9C1 /* ViewController.swift */,
-				D4BA01831CBC082E0005B9C1 /* Main.storyboard */,
-				D4BA01861CBC082E0005B9C1 /* Assets.xcassets */,
-				D4BA01881CBC082E0005B9C1 /* LaunchScreen.storyboard */,
-				D4BA018B1CBC082E0005B9C1 /* Info.plist */,
-				D4BA01AF1CBC1ADF0005B9C1 /* DataPageViewController.swift */,
 				D4BA01AD1CBC13C10005B9C1 /* SettingsTableViewController.swift */,
+				D463DF561CCE0FF900E75DDE /* LevelSettingsViewController.swift */,
+				D463DF5C1CCE13E800E75DDE /* ActiveDrumsTableViewController.swift */,
+				D463DF4C1CCC29D200E75DDE /* ScannerViewController.swift */,
+				D4BA01AF1CBC1ADF0005B9C1 /* DataPageViewController.swift */,
+				D4A4A4D91CC3F20000CE7F4A /* GraphView.swift */,
 				D4BA01B11CBC1D600005B9C1 /* SessionsPageViewController.swift */,
 				D4BA01B31CBC25B70005B9C1 /* DateViewController.swift */,
 				D4BA01B51CBC25C30005B9C1 /* SongViewController.swift */,
-				D4A4A4D91CC3F20000CE7F4A /* GraphView.swift */,
+				D4BA01831CBC082E0005B9C1 /* Main.storyboard */,
+				D4BA01881CBC082E0005B9C1 /* LaunchScreen.storyboard */,
+				D4BA018B1CBC082E0005B9C1 /* Info.plist */,
+				D4BA01861CBC082E0005B9C1 /* Assets.xcassets */,
 				D4A4A4DD1CC3F9C500CE7F4A /* spongebob.mp3 */,
+				D463DF4E1CCC29D200E75DDE /* DZBluetoothSerialHandler.swift */,
+				D463DF4D1CCC29D200E75DDE /* BTCommunicationViewController.swift */,
+				D463DF491CCC28F800E75DDE /* MBProgressHUD.m */,
+				D463DF481CCC28F800E75DDE /* MBProgressHUD.h */,
+				D463DF471CCC28F700E75DDE /* BeeBop-Bridging-Header.h */,
 			);
 			path = BeeBop;
 			sourceTree = "<group>";
@@ -280,13 +302,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4BA01821CBC082E0005B9C1 /* ViewController.swift in Sources */,
+				D463DF521CCC29D200E75DDE /* DZBluetoothSerialHandler.swift in Sources */,
+				D463DF511CCC29D200E75DDE /* BTCommunicationViewController.swift in Sources */,
 				D4BA01B01CBC1ADF0005B9C1 /* DataPageViewController.swift in Sources */,
 				D4BA01801CBC082E0005B9C1 /* AppDelegate.swift in Sources */,
 				D4BA01B21CBC1D600005B9C1 /* SessionsPageViewController.swift in Sources */,
+				D463DF4A1CCC28F800E75DDE /* MBProgressHUD.m in Sources */,
+				D463DF5D1CCE13E800E75DDE /* ActiveDrumsTableViewController.swift in Sources */,
 				D4BA01B41CBC25B70005B9C1 /* DateViewController.swift in Sources */,
 				D4BA01AE1CBC13C10005B9C1 /* SettingsTableViewController.swift in Sources */,
 				D4BA01B61CBC25C30005B9C1 /* SongViewController.swift in Sources */,
+				D463DF571CCE0FF900E75DDE /* LevelSettingsViewController.swift in Sources */,
 				D4A4A4DA1CC3F20000CE7F4A /* GraphView.swift in Sources */,
+				D463DF501CCC29D200E75DDE /* ScannerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,11 +459,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = BeeBop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BeeBop/BeeBop-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -444,11 +475,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = BeeBop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = edu.tufts.cs.BeeBop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BeeBop/BeeBop-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

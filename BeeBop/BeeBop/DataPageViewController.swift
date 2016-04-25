@@ -14,26 +14,70 @@ class DataPageViewController: UIViewController {
     @IBOutlet weak var chartView: UIView!
     @IBOutlet weak var graphView: UIView!
     
+    /*************** FAKE DATA ******************/
+    
+    var testTempo = 120
+    
+    var testSongKey = 0
+    
+    var testBeatSequence = [0,0,0,0,0,0,0,0,
+                            0,0,0,0,0,0,0,0,
+                            0,0,0,0,0,0,0,0,
+                            1,0,1,0,1,1,1,1,
+                            1,0,1,0,1,1,1,1,
+                            1,0,1,0,1,1,1,1,
+                            1,0,1,0,1,1,1,1,
+                            1,1,1,1,1,1,1,1,
+                            1,1,1,1,1,1,0,1,
+                            1,0,0,0]
+    
+    // 0 - no hit
+    // 1 - correct hit
+    // 2 - incorrect hit
+    var testDrumSequence = [0,0,0,2,0,0,0,0,
+                            0,0,0,0,0,0,0,0,
+                            0,0,0,2,0,0,0,0,
+                            1,0,1,0,1,1,0,1,
+                            1,2,1,0,1,2,1,1,
+                            1,0,1,0,1,1,0,1,
+                            1,0,1,2,1,0,1,1,
+                            2,1,1,1,1,1,1,2,
+                            1,1,1,1,1,1,2,1,
+                            1,0,2,0]
+    
+    // in seconds?
+    var testReactionTimes = [0,0,0,0.2,0,0,0,0,
+                             0,0,0,0,0,0,0,0,
+                             0,0,0,0.2,0,0,0,0,
+                             0.1,0,0.1,0,0.1,0.1,0,0.1,
+                             0.1,0.2,0.1,0,0.1,0.2,0.1,0.1,
+                             0.1,0,0.1,0,0.1,0.1,0,0.1,
+                             0.1,0,0.1,0.2,0.1,0,0.1,0.1,
+                             0.2,0.1,0.1,0.1,0.1,0.1,0.1,0.2,
+                             0.1,0.1,0.1,0.1,0.1,0.1,0.2,0.1,
+                             0.1,0,0.2,0]
+    
+    //in Newtons
+    var testForce = [0,0,0,20,0,0,0,0,
+                     0,0,0,0,0,0,0,0,
+                     0,0,0,20,0,0,0,0,
+                     10,0,10,0,10,10,0,10,
+                     10,20,10,0,10,20,10,10,
+                     10,0,10,0,10,10,0,10,
+                     10,0,10,20,10,0,10,10,
+                     20,10,10,10,10,10,10,20,
+                     10,10,10,10,10,10,20,10,
+                     10,0,20,0]
+    
+    /***************** END OF FAKE DATA ******************/
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

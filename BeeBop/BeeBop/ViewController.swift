@@ -9,56 +9,21 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+/* FOR RESETTING DATA (Testing) */
+let RESET:Bool = false
 
+
+// keys and default values for NSUserDefaults
+let maxLevelKey = "maxLevel"
+let defaultMaxLevel = 5
+let userLevelKey = "userLevel"
+let drumsKey = "drums"
+
+class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var startStopButton: UIButton!
     @IBOutlet weak var songPickerLabel: UILabel!
     @IBOutlet weak var songPicker: UIPickerView!
-    
-/*************** FAKE DATA ******************/
-    
-    
-    
-    // 0 - no hit
-    // 1 - correct hit
-    // 2 - incorrect hit
-    var testDrumSequence = [0,0,0,2,0,0,0,0,
-                            0,0,0,0,0,0,0,0,
-                            0,0,0,2,0,0,0,0,
-                            1,0,1,0,1,1,0,1,
-                            1,2,1,0,1,2,1,1,
-                            1,0,1,0,1,1,0,1,
-                            1,0,1,2,1,0,1,1,
-                            2,1,1,1,1,1,1,2,
-                            1,1,1,1,1,1,2,1,
-                            1,0,2,0]
-    
-    // in seconds?
-    var testReactionTimes = [0,0,0,0.2,0,0,0,0,
-                             0,0,0,0,0,0,0,0,
-                             0,0,0,0.2,0,0,0,0,
-                             0.1,0,0.1,0,0.1,0.1,0,0.1,
-                             0.1,0.2,0.1,0,0.1,0.2,0.1,0.1,
-                             0.1,0,0.1,0,0.1,0.1,0,0.1,
-                             0.1,0,0.1,0.2,0.1,0,0.1,0.1,
-                             0.2,0.1,0.1,0.1,0.1,0.1,0.1,0.2,
-                             0.1,0.1,0.1,0.1,0.1,0.1,0.2,0.1,
-                             0.1,0,0.2,0]
-    
-    //in Newtons
-    var testForce = [0,0,0,20,0,0,0,0,
-                     0,0,0,0,0,0,0,0,
-                     0,0,0,20,0,0,0,0,
-                     10,0,10,0,10,10,0,10,
-                     10,20,10,0,10,20,10,10,
-                     10,0,10,0,10,10,0,10,
-                     10,0,10,20,10,0,10,10,
-                     20,10,10,10,10,10,10,20,
-                     10,10,10,10,10,10,20,10,
-                     10,0,20,0]
-    
-/***************** END OF FAKE DATA ******************/
     
     var songPlayer: AVAudioPlayer?
     var currentSong: NSURL!
@@ -93,6 +58,8 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        serial = DZBluetoothSerialHandler(delegate: self)
+        
         initializeDefaults()
         
         let spongebobPath = NSBundle.mainBundle().pathForResource("spongebob", ofType: "mp3")!
@@ -103,7 +70,23 @@ class ViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSo
     }
     
     func initializeDefaults() {
-        defaults.setInteger(3, forKey: "speed")
+        if (RESET) {
+            defaults.removeObjectForKey(maxLevelKey)
+            defaults.removeObjectForKey(userLevelKey)
+            defaults.removeObjectForKey(drumsKey)
+        }
+        
+        defaults.setInteger(defaultMaxLevel, forKey: maxLevelKey)
+        
+        if (defaults.integerForKey(userLevelKey) > defaultMaxLevel
+         || defaults.integerForKey(userLevelKey) < 1) {
+            print("HERE")
+            defaults.setInteger(1, forKey: userLevelKey)
+        }
+        
+        if (defaults.arrayForKey(drumsKey) == nil) {
+            defaults.setObject([1, 1, 0, 1], forKey: drumsKey)
+        }
     }
     
     override func didReceiveMemoryWarning() {

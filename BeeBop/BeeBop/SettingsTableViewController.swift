@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
     
-    let settingsCells = ["Cue Type", "Time Between Cues", "Active Drums", "Handedness", "Hit Force"]
+    let settingsCells = ["Level", "Active Drums", "Bluetooth"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,21 +41,20 @@ class SettingsTableViewController: UITableViewController {
         let cell:UITableViewCell
         let setting = settingsCells[indexPath.row]
         
-        if (setting == "Cue Type") {
-            cell = tableView.dequeueReusableCellWithIdentifier("CueTypeCell", forIndexPath: indexPath)
-            cell.textLabel?.text = setting
-        } else if (setting == "Time Between Cues") {
-            cell = tableView.dequeueReusableCellWithIdentifier("TimeBetweenCuesCell", forIndexPath: indexPath)
+        if (setting == "Level") {
+            cell = tableView.dequeueReusableCellWithIdentifier("LevelCell", forIndexPath: indexPath)
             cell.textLabel?.text = setting
         } else if (setting == "Active Drums") {
             cell = tableView.dequeueReusableCellWithIdentifier("ActiveDrumsCell", forIndexPath: indexPath)
             cell.textLabel?.text = setting
-            
-        } else if (setting == "Handedness") {
+        /*} else if (setting == "Handedness") {
             cell = tableView.dequeueReusableCellWithIdentifier("HandednessCell", forIndexPath: indexPath)
             cell.textLabel?.text = setting
         } else if (setting == "Hit Force") {
             cell = tableView.dequeueReusableCellWithIdentifier("HitForceCell", forIndexPath: indexPath)
+            cell.textLabel?.text = setting*/
+        } else if (setting == "Bluetooth") {
+            cell = tableView.dequeueReusableCellWithIdentifier("BluetoothCell", forIndexPath: indexPath)
             cell.textLabel?.text = setting
         } else {
             cell = UITableViewCell()
