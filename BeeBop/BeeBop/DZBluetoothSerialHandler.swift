@@ -138,14 +138,14 @@ final class DZBluetoothSerialHandler: NSObject, CBCentralManagerDelegate, CBPeri
     //MARK: CBCentralManagerDelegate functions
     
     func centralManager(central: CBCentralManager, didDiscoverPeripheral peripheral: CBPeripheral, advertisementData: [String : AnyObject], RSSI: NSNumber) {
-        if delegate.respondsToSelector(Selector("serialHandlerDidDiscoverPeripheral:RSSI:")) {
+        if delegate.respondsToSelector(#selector(DZBluetoothSerialDelegate.serialHandlerDidDiscoverPeripheral(_:RSSI:))) {
             // just send it to the delegate
             delegate.serialHandlerDidDiscoverPeripheral!(peripheral, RSSI: RSSI)
         }
     }
     
     func centralManager(central: CBCentralManager, didConnectPeripheral peripheral: CBPeripheral) {
-        if delegate.respondsToSelector(Selector("serialHandlerDidConnect:")) {
+        if delegate.respondsToSelector(#selector(DZBluetoothSerialDelegate.serialHandlerDidConnect(_:))) {
             // send it to the delegate
             delegate.serialHandlerDidConnect!(peripheral)
         }
@@ -164,21 +164,21 @@ final class DZBluetoothSerialHandler: NSObject, CBCentralManagerDelegate, CBPeri
     
     func centralManager(central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: NSError?) {
         connectedPeripheral = nil
-        if delegate.respondsToSelector(Selector("serialHandlerDidDisconnect:error:")) {
+        if delegate.respondsToSelector(#selector(DZBluetoothSerialDelegate.serialHandlerDidDisconnect(_:error:))) {
             // send it to the delegate
             delegate.serialHandlerDidDisconnect!(peripheral, error: error)
         }
     }
     
     func centralManager(central: CBCentralManager, didFailToConnectPeripheral peripheral: CBPeripheral, error: NSError?) {
-        if delegate.respondsToSelector(Selector("serialHandlerDidFailToConnect:error:")) {
+        if delegate.respondsToSelector(#selector(DZBluetoothSerialDelegate.serialHandlerDidFailToConnect(_:error:))) {
             // just send it to the delegate
             delegate.serialHandlerDidFailToConnect!(peripheral, error: error)
         }
     }
     
     func centralManagerDidUpdateState(central: CBCentralManager) {
-        if delegate.respondsToSelector(Selector("serialHandlerDidChangeState:")) {
+        if delegate.respondsToSelector(#selector(DZBluetoothSerialDelegate.serialHandlerDidChangeState(_:))) {
             // just send it to the delegate
             delegate.serialHandlerDidChangeState!(central.state)
         }
@@ -201,7 +201,7 @@ final class DZBluetoothSerialHandler: NSObject, CBCentralManagerDelegate, CBPeri
                 connectedPeripheral = peripheral
                 // subscribe to this value (so we'll get notified when there is serial data for us..)
                 peripheral.setNotifyValue(true, forCharacteristic: characteristic)
-                if delegate.respondsToSelector(Selector("serialHandlerIsReady:")) {
+                if delegate.respondsToSelector(#selector(DZBluetoothSerialDelegate.serialHandlerIsReady(_:))) {
                     // notify the delegate we're ready for communication
                     delegate.serialHandlerIsReady!(peripheral)
                 }
@@ -219,7 +219,7 @@ final class DZBluetoothSerialHandler: NSObject, CBCentralManagerDelegate, CBPeri
             buffer += newStr
             
             // notify the delegate of the new string
-            if delegate.respondsToSelector(Selector("serialHandlerDidReceiveMessage:")) {
+            if delegate.respondsToSelector(#selector(DZBluetoothSerialDelegate.serialHandlerDidReceiveMessage(_:))) {
                 delegate!.serialHandlerDidReceiveMessage!(newStr)
             }
         } else {

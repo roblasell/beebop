@@ -2,26 +2,26 @@
 //  ScannerViewController.swift
 //  HM10 Serial
 //
-//  Created by Alex on 10-08-15.
+//  Created by Alex and edited by Rob and Ari for use with BeeBop
 //  Copyright (c) 2015 Balancing Rock. All rights reserved.
 //
 
 import UIKit
 import CoreBluetooth
 
-// TODO will not detect tampering while user is on this page because it doesn't use my custom delegate class
 class ScannerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZBluetoothSerialDelegate {
 
    
 //MARK: IBOutlets
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var rescanButton: UIBarButtonItem!
     
-//MARK: Variables
+//MARK: Scanner Variables
     
     /// The peripherals that have been discovered (no duplicates and sorted by asc RSSI)
-    var peripherals: [(peripheral: CBPeripheral, RSSI: Float)] = []
-    
+    //var peripherals: [(peripheral: CBPeripheral, RSSI: Float)] = []
+    var peripherals: [CBPeripheral] = []
     /// The peripheral the user has selected
     var selectedPeripheral: CBPeripheral?
     
@@ -37,11 +37,18 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
         // rescanButton is only enabled when we've stopped scanning
         rescanButton.enabled = false
 
-        // remove extra seperator insets (looks better imho)
-        //tableView.tableFooterView = UIView(frame: CGRectZero)
+        // remove extra searator lines (looks better)
+        tableView.tableFooterView = UIView(frame: CGRectZero)
 
         // tell the delegate to notificate US instead of the previous view if something happens
         serial.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        if (serial.connectedPeripheral != nil) {
+            peripherals.append(serial.connectedPeripheral!)//peripheral: serial.connectedPeripheral., RSSI: RSSI.floatValue)
+            //peripherals.sortInPlace { $0.RSSI < $1.RSSI }
+        }
         
         if serial.state != .PoweredOn {
             // TODO handle bluetooth not being on
@@ -109,14 +116,34 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+       // print(peripherals.count)
         return peripherals.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // return a cell with the peripheral name as text in the label
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell")!
-        let label = cell.viewWithTag(1) as! UILabel!
-        label.text = peripherals[indexPath.row].peripheral.name
+        let cell = tableView.dequeueReusableCellWithIdentifier("BluetoothDeviceCell")!
+        //let label = cell.viewWithTag(1) as! UILabel!
+        //label.text = peripherals[indexPath.row].peripheral.name
+        if (peripherals[indexPath.row].name/*peripheral.*/ == "HMSoft") {
+            cell.textLabel!.text = "BeeBop"
+        } else {
+            cell.textLabel!.text = peripherals[indexPath.row].name/*peripheral.*/
+        }
+        
+        if (peripherals[indexPath.row]/*.peripheral*/ == selectedPeripheral ||
+            (serial.connectedPeripheral != nil && peripherals[indexPath.row].name == serial.connectedPeripheral!.name)) {//(serial.connectedPeripheral != nil && peripherals[indexPath.row].peripheral.name == serial.connectedPeripheral!.name) {
+            cell.detailTextLabel?.text = "Connected"
+        } else {
+            //print("HERE")
+            if (serial.connectedPeripheral != nil) {
+                //print(serial.connectedPeripheral!.name)
+            } else {
+                //print("NO NAME!")
+            }
+            cell.detailTextLabel?.text = "Not Connected"
+        }
+        //print (peripherals[indexPath.row].peripheral.name)
         return cell
     }
     
@@ -128,13 +155,16 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         // the user has selected a peripheral, so stop scanning and proceed to the next view
+        //a "connecting" popup with spinning wheel, returns you to home
         serial.stopScanning()
-        selectedPeripheral = peripherals[indexPath.row].peripheral
+        selectedPeripheral = peripherals[indexPath.row]//.peripheral
         serial.connectToPeripheral(selectedPeripheral!)
         progressHUD = MBProgressHUD.showHUDAddedTo(view, animated: true)
         progressHUD!.labelText = "Connecting"
         
-        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "connectTimeOut", userInfo: nil, repeats: false)
+        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(ScannerViewController.connectTimeOut), userInfo: nil, repeats: false)
+        
+        tableView.reloadData()
     }
     
     
@@ -142,13 +172,22 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func serialHandlerDidDiscoverPeripheral(peripheral: CBPeripheral, RSSI: NSNumber) {
         // check whether it is a duplicate
-        for exisiting in peripherals {
-            if exisiting.peripheral.identifier == peripheral.identifier { return }
+        for existing in peripherals {
+            if existing.identifier/*peripheral.*/ == peripheral.identifier { return }
         }
         
-        // add to the array, next sort & reload
-        peripherals.append(peripheral: peripheral, RSSI: RSSI.floatValue)
-        peripherals.sortInPlace { $0.RSSI < $1.RSSI }
+        //print("in serialHandlerDidDiscover...")
+        
+        // add to the array, next sort & reload if the device is named
+        //if (peripheral.name != nil) {
+        if (peripheral.name != nil) {
+            peripherals.append(/*peripheral: */peripheral)//, RSSI: RSSI.floatValue)
+            //peripherals.sortInPlace { $0.RSSI < $1.RSSI }
+        }
+
+        //print("peripheral to be added", peripheral)
+        //print(peripherals)
+        
         tableView.reloadData()
     }
     
@@ -156,6 +195,10 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if let hud = progressHUD {
             hud.hide(false)
+        }
+        
+        if (peripheral == selectedPeripheral) {
+            selectedPeripheral = nil
         }
         
         rescanButton.enabled = true
@@ -170,6 +213,10 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
         
         if let hud = progressHUD {
             hud.hide(false)
+        }
+        
+        if (peripheral == selectedPeripheral) {
+            selectedPeripheral = nil
         }
         
         rescanButton.enabled = true

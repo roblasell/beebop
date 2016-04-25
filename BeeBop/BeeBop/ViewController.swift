@@ -15,7 +15,7 @@ let RESET:Bool = false
 
 // keys and default values for NSUserDefaults
 let maxLevelKey = "maxLevel"
-let defaultMaxLevel = 5
+let defaultMaxLevel = 3
 let userLevelKey = "userLevel"
 let drumsKey = "drums"
 
@@ -40,7 +40,9 @@ class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPic
     var tempos = [120]
     // parallel array of hard-coded sequences of beats (1) and rests(0) for each song
     var beatSequences = [
-        [0,0,0,0,0,0,0,0,
+        [[], [],
+        
+         [0,0,0,0,0,0,0,0,
          0,0,0,0,0,0,0,0,
          0,0,0,0,0,0,0,0,
          1,0,1,0,1,1,1,1,
@@ -50,6 +52,7 @@ class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPic
          1,1,1,1,1,1,1,1,
          1,1,1,1,1,1,0,1,
          1,0,0,0]
+        ]
     ]
     
     // songs for squares

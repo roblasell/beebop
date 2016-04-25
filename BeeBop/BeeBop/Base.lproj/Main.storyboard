@@ -758,7 +758,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="uWA-1n-5zC" style="IBUITableViewCellStyleDefault" id="an5-yT-kLw">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BluetoothDeviceCell" textLabel="uWA-1n-5zC" detailTextLabel="y0Q-gG-aSb" style="IBUITableViewCellStyleValue1" id="an5-yT-kLw">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="an5-yT-kLw" id="eEt-tl-KLY">
                                             <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
@@ -768,7 +768,16 @@
                                                     <rect key="frame" x="15" y="0.0" width="210" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    </variation>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y0Q-gG-aSb">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="heightClass=regular-widthClass=compact">
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -778,20 +787,35 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="0.0" y="64" width="400" height="736"/>
-                                </variation>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4Ra-9G-771" firstAttribute="bottom" secondItem="CkO-Dc-rST" secondAttribute="top" id="Apf-Pm-RIX"/>
+                            <constraint firstAttribute="trailing" secondItem="4Ra-9G-771" secondAttribute="trailing" id="Gon-yZ-tiv"/>
+                            <constraint firstItem="4Ra-9G-771" firstAttribute="top" secondItem="ik5-HQ-V0s" secondAttribute="bottom" id="gRd-Py-i4K"/>
+                            <constraint firstItem="4Ra-9G-771" firstAttribute="leading" secondItem="P87-kI-rON" secondAttribute="leading" id="qPn-V5-8Pe"/>
+                        </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="4Ra-9G-771"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Apf-Pm-RIX"/>
+                                <exclude reference="Gon-yZ-tiv"/>
+                                <exclude reference="gRd-Py-i4K"/>
+                                <exclude reference="qPn-V5-8Pe"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="4Ra-9G-771"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Apf-Pm-RIX"/>
+                                <include reference="Gon-yZ-tiv"/>
+                                <include reference="gRd-Py-i4K"/>
+                                <include reference="qPn-V5-8Pe"/>
                             </mask>
                         </variation>
                     </view>
