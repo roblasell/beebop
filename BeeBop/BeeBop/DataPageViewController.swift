@@ -8,6 +8,18 @@
 
 import UIKit
 
+/* Session Data Structure
+ * sessions  -> array
+ * - session     -> dictionary
+ * --- tempo         -> int
+ * --- level         -> int
+ * --- song_name     -> string
+ * --- drums         -> [int]
+ * --- beat_sequence -> [int]
+ * --- hit_sequence  -> [string]
+ */
+
+
 class DataPageViewController: UIViewController {
 
     @IBOutlet weak var filterControl: UISegmentedControl!
