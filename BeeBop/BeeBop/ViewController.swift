@@ -2,17 +2,20 @@
 //  ViewController.swift
 //  BeeBop
 //
-//  Created by Rob Lasell on 4/11/16.
+//  Created by Rob Lasell on April 4 2016
+//  With contributions by Aristana Scourtas on May 4 2016
 //  Copyright © 2016 Tufts. All rights reserved.
 //
-//  View controller for the main screen of BeeBop,
-//  where users can play a song and play along on
-//  the BeeBop drum peripheral.
+//  View controller for the main screen of the BeeBop companion app,
+//  where users can play a song and play along on the BeeBop drum peripheral.
 //
-
 
 import UIKit
 import AVFoundation
+import CoreBluetooth
+
+// global bluetooth connection manager for UART chips
+let nrfManager = NRFManager.sharedInstance
 
 // for resetting NSUserDefaults (testing)
 let RESET: Bool = false
@@ -23,7 +26,7 @@ let defaultMaxLevel = 3
 let userLevelKey    = "userLevel"
 let drumsKey        = "drums"
 
-// keys for storing to plist
+// keys for session dictionaries to be stored in a plist file
 let tempoDataKey        = "tempo"
 let levelDataKey        = "level"
 let songNameDataKey     = "song_name"
@@ -35,82 +38,122 @@ let hitSequenceDataKey  = "hit_sequence"
 let sessionDataFilename = "sessiondata.plist"
 
 
-class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+// MARK: - View Controller
+
+class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let defaults = NSUserDefaults.standardUserDefaults()
+    
+    // user settings from NSUserDefaults
+    var drums = []
+    var activeDrums = 0
+    
+    // an array of sessions (songs played)
+    var sessionData = NSMutableArray()
+    // the current/most recent session
+    var session = NSMutableDictionary()
+    
+    // song names to choose from
+    var pickerSongs = ["SpongeRon Mingpants", "A Very Ming Chow Christmas", "Ron Ron Ron Your Boat", "I'm Ming and You're Chow", "Do the Ming'n'Ron Dance", "Ron Top of Old Smokey", "You're the Only Ron for Me", "Doo Wop (That Ming)", "The Lasser of Two Evils", "What a Day for a Mobile Medical Device"]
+    // songs for squares
+    // let boringSongs = ["Song1", "Song2", "Song3", "Song4", "Song5", "Song6", "Song7"]
+    
+    // array of songs corresponding to pickerSongs
+    // like tempos, currently only contains one entry (for SpongeRon Mingpants)
+    var songs: [NSURL] = [NSURL]()
+    // parallel array of base tempos for each song
+    var tempos = [120]
+    
+    /* data related to the playing of the audio */
+    var songPlayer: AVAudioPlayer?
+    var playing = false
+    var paused = false
+    
+    /* current song data based on the user's choice from the picker data */
+    var currentSong: NSURL!
+    var currentSongIndex = 0
+    var currentTempo = 0
+    // seconds per beat, based on the chosen song's tempo
+    var secPerBeat = 0.0
+    // sequence of beats to play, based on the chosen song and difficulty level
+    var beatSequence = [Int]()
+    
+    /* variables for the actual drum-playing logic */
+    // the beat that the song is currently "on"
+    var beatCounter = 0
+    // the beat that we are waiting to hear back from the bluetooth device about
+    var mostRecentBeat = 0
+    // whether or not we are waiting to hear back from the bluetooth device
+    var waiting = false
+    // keeps time for the song, firing once per beat
+    var timer = NSTimer()
+    // stored data about the drums played by the user, received from the bluetooth device
+    var hitSequence = [String]()
     
     // storyboard outlets
     @IBOutlet weak var startStopButton: UIButton!
     @IBOutlet weak var songPickerLabel: UILabel!
     @IBOutlet weak var songPicker: UIPickerView!
     
-    var songPlayer: AVAudioPlayer?
-    var currentSong: NSURL!
-    var playing: Bool = false
-    
-    // an array of sessions (songs played)
-    var sessionData = NSMutableArray()
-    // the current/most recent session
-    var session = NSMutableDictionary()
-
-    // song names to choose from
-    var pickerSongs: [String] = ["SpongeRon Mingpants", "A Very Ming Chow Christmas", "Ron Ron Ron Your Boat", "I'm Ming and You're Chow", "Do the Ming'n'Ron Dance", "Ron Top of Old Smokey", "You're the Only Ron for Me", "Doo Wop (That Ming)", "The Lasser of Two Evils", "What a Day for a Mobile Medical Device"]
-    
-    // array of songs corresponding to pickerSongs
-    // array would be expanded given more time and resources
-    var songs: [NSURL] = [NSURL]()
-    // parallel array of base tempos for each song
-    var tempos = [120]
+    // TODO: Beats seem to skip back a bit when waiting for bluetooth
     
     // parallel array of arrays of hard-coded sequences
     // of beats (1) and rests(0) for each song;
     // inner arrays correspond to the challenge levels
     // for a given song
     var beatSequences = [
-        [[], [],
-        
-         [0,0,0,0,0,0,0,0,
-         0,0,0,0,0,0,0,0,
-         0,0,0,0,0,0,0,0,
-         1,0,1,0,1,1,1,1,
-         1,0,1,0,1,1,1,1,
-         1,0,1,0,1,1,1,1,
-         1,0,1,0,1,1,1,1,
-         1,1,1,1,1,1,1,1,
-         1,1,1,1,1,1,0,1,
-         1,0,0,0]
+        [ // SpongeRon Mingpants
+            // level 1
+            [0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,
+             0,0,0,1,0,0,0,0,1,0,1,0,1,1,1,1,
+             1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,
+             1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,
+             1,1,1,1,1,1,0,1,1,0,0,0],
+            // level 2
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,
+             1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,
+             1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,
+             1,0,1,0,1,0,0,1,1,0,0,0],
+            // level 3
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+             0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,
+             1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,
+             1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,
+             1,1,1,1,1,1,0,1,1,0,0,0]
         ]
     ]
     
-    // songs for squares
-    // let boringSongs = ["Song1", "Song2", "Song3", "Song4", "Song5", "Song6", "Song7"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         makeFakeData()
         
-        serial = DZBluetoothSerialHandler(delegate: self)
+        nrfManager.delegate = self
         
         initializeDefaults()
         
         loadSessionDataFromFile()
         
-        // for deomnstration purposes
+        // for demonstration purposes
         let spongebobPath = NSBundle.mainBundle().pathForResource("spongebob", ofType: "mp3")!
         songs = [NSURL.fileURLWithPath(spongebobPath)]
         
         // initialize the song and song player to
         // the first song in the picker
         currentSong = songs[0]
-        do {
-            try songPlayer = AVAudioPlayer(contentsOfURL: currentSong)
-        } catch {
-            print("Player not available")
-        }
+        currentSongIndex = 0
+        
+        songPlayer = AVAudioPlayer()
 
         songPicker.delegate = self
         songPicker.dataSource = self
+    }
+    
+    //reassign the delegate so that it persists even if the view is changed
+    override func viewDidAppear(animated: Bool) {
+        nrfManager.delegate = self
     }
     
     // initialize NSUserDefaults values for each key
@@ -158,15 +201,17 @@ class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPic
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // ensure that the user can only play the
         // demonstration song, "SpongeRon MingPants"
+        if (playing) {
+            stopSong()
+        }
+        
+        //if it's the SpongeRon MingPants song
         if (row == 0) {
             currentSong = songs[row]
-            do {
-                try songPlayer = AVAudioPlayer(contentsOfURL: currentSong)
-            } catch {
-                print("Player not available")
-            }
+            currentSongIndex = row
         } else {
             currentSong = NSURL()
+            currentSongIndex = 0
             songPlayer = AVAudioPlayer()
         }
     }
@@ -175,15 +220,139 @@ class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPic
     // plays or stops the chosen song
     @IBAction func buttonPressed (sender : AnyObject) -> Void {
         if (!playing) {
-            songPlayer?.play()
-            playing = true
-            startStopButton.setTitle("Stop Song", forState: UIControlState.Normal)
+            playSong()
         } else {
-            songPlayer?.stop()
-            playing = false
-            startStopButton.setTitle("Start Song", forState: UIControlState.Normal)
-            saveData()
+            stopSong()
         }
+    }
+    
+    func loadSongPlayer() {
+        do {
+            try songPlayer = AVAudioPlayer(contentsOfURL: currentSong)
+        } catch {
+            print("Player not available")
+        }
+    }
+    
+    func playSong() {
+        let level = defaults.integerForKey(userLevelKey)
+        currentTempo = tempos[currentSongIndex]
+        let songName = pickerSongs[currentSongIndex]
+        beatSequence = beatSequences[currentSongIndex][level - 1]
+        beatCounter = 0
+        mostRecentBeat = 0
+        
+        loadSongPlayer()
+        
+        activeDrums = 0
+        drums = defaults.arrayForKey(drumsKey) as! [Int]
+        // set activeDrums for use with randomDrum
+        for d in drums {
+            if d as! Int == 1 {
+                activeDrums += 1
+            }
+        }
+        
+        //set time interval used in timer
+        secPerBeat = 60.0 / Double(currentTempo)
+        waiting = false
+        paused = false
+        
+        session = NSMutableDictionary()
+        session.setObject(currentTempo, forKey: tempoDataKey)
+        session.setObject(level, forKey: levelDataKey)
+        session.setObject(songName, forKey: songNameDataKey)
+        session.setObject(drums, forKey: drumsDataKey)
+        session.setObject(beatSequence, forKey: beatSequenceDataKey)
+        
+        hitSequence = [String](count: beatSequence.count, repeatedValue: "")
+        
+        playing = true
+        startStopButton.setTitle("Stop Song", forState: UIControlState.Normal)
+        songPlayer?.play()
+        
+        // Create a scheduled timer
+        startTimer()
+        
+        // Add the timer to the main runloop
+        NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+    }
+    //stop the song if the song is over or if the user didn't hit the correct
+    //beat in time
+    func stopSong() {
+        songPlayer?.stop()
+        songPlayer = AVAudioPlayer()
+        //stop the timer
+        timer.invalidate()
+        sendToDevice(String(drums.count))
+        playing = false
+        saveData()
+        startStopButton.setTitle("Start Song", forState: UIControlState.Normal)
+    }
+    
+    // called by timer, once per beat
+    func singleBeat() {
+        print("WHY, HELLO THERE! This is beat:", beatCounter)
+        //if the song is playing and it's not the last beat of the song
+        if (playing && beatCounter < beatSequence.count) {
+            if (beatSequence[beatCounter] == 1) { //beat was a 1 i.e. not a rest
+                if (!waiting) {
+                    let drum = randomDrum()
+                    sendToDevice(String(drum))
+                    waiting = true
+                    mostRecentBeat = beatCounter
+                    beatCounter += 1
+                } else { // waiting for confirmation
+                    print("waiting for response for beat:", mostRecentBeat)
+                    timer.invalidate()
+                    paused = true
+                    songPlayer?.pause()
+                }
+            } else { // beat was a 0 i.e. a rest
+                beatCounter += 1
+            }
+        } else { // song stopped playing for whatever reason
+            stopSong()
+        }
+    }
+    
+    func startTimer() {
+        print("start timer")
+        //create a new instance of the timer every time the song starts/resumes
+        timer = NSTimer.scheduledTimerWithTimeInterval(
+            secPerBeat,
+            target: self,
+            selector: #selector(ViewController.singleBeat),
+            userInfo: nil,
+            repeats: true)
+        print(timer)
+    }
+    
+    //send data string to peripheral
+    func sendToDevice(msg: String) {
+        print("sending:", msg, "to device")
+        nrfManager.writeString(msg)
+        //serial.sendMessageToDevice(msg)
+        //serial.sendMessageToDevice("a")
+    }
+    
+    //generate a random drum number to be hit
+    func randomDrum() -> Int {
+        let r = Int(arc4random_uniform(UInt32(activeDrums)))
+        print("random is", r)
+        var d = 0
+        
+        for i in 0...(drums.count - 1) {
+            if (drums[i] as! NSObject == 1) {
+                if (d == r) {
+                    return i
+                } else {
+                    d += 1
+                }
+            }
+        }
+        
+        return 0
     }
     
     /* Session Data Structure
@@ -249,6 +418,8 @@ class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPic
         let documentsDirectory = paths.objectAtIndex(0) as! NSString
         let path = documentsDirectory.stringByAppendingPathComponent(sessionDataFilename)
         
+        session.setObject(hitSequence, forKey: hitSequenceDataKey)
+        sessionData.addObject(session)
         sessionData.writeToFile(path, atomically: false)
     }
     
@@ -256,6 +427,9 @@ class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPic
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         let documentsDirectory = paths.objectAtIndex(0) as! NSString
         let path = documentsDirectory.stringByAppendingPathComponent(sessionDataFilename)
+        
+        //print(path)
+        
         
         let fileManager = NSFileManager.defaultManager()
         // check if file exists
@@ -269,6 +443,9 @@ class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPic
                 }
             } else {
                 print("sessiondata.plist not found. Please make sure that it is part of the bundle.")
+                print("Making new sessiondata.plist")
+                let newArray = NSMutableArray()
+                newArray.writeToFile(path, atomically: false)//
             }
         } else {
             print("sessiondata.plist already exits at path.")
@@ -276,9 +453,16 @@ class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPic
             // fileManager.removeItemAtPath(path, error: nil)
         }
         
+        //let newArray = NSMutableArray()
+        //newArray.writeToFile(path, atomically: false)
+
         // load the file's contents into sessionData
         sessionData = NSMutableArray(contentsOfFile: path)!
 
+        //print(NSMutableArray(contentsOfFile: path))
+        
+        //print(sessionData)
+        
         /* for testing purposes
         var testArray = NSArray(contentsOfFile: path)
         if let arr = testArray {
@@ -293,6 +477,59 @@ class ViewController: BTCommunicationViewController, UIPickerViewDelegate, UIPic
         }
         */
         
+    }
+    
+    // called when the bluetooth device sends the app a message
+    func nrfReceivedData(nrfManager: NRFManager, data: NSData?, string: String?) {
+        print("in nrfReceivedData")
+        hitSequence[mostRecentBeat] = string!
+        waiting = false
+        
+        print (hitSequence)
+        
+        print("received", string!)
+        
+        if (!playing) {
+            print("ViewController: Received a message from the bluetooth device, but song was not playing")
+            return
+        }
+        
+        if (paused) {
+            print("in paused conditional with mostRecentBeat:", mostRecentBeat)
+            //if paused, need to also start timer and song
+            print("setting song to time:", String(secPerBeat * Double(beatCounter)))
+            songPlayer?.currentTime = secPerBeat * Double(beatCounter)
+            print("starting timer")
+            startTimer()
+            print("starting song at beat:", beatCounter)
+            songPlayer?.play()
+            paused = false
+        } else {
+            print ("not paused")
+        }
+        
+        print("at end of nrfReceivedData")
+    }
+    
+    // called if the device disconnects for whatever reason
+    func nrfDidDisconnect(nrfManager: NRFManager) {
+        // reloadView()
+        //display the progress in the overlay
+        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        hud.mode = MBProgressHUDMode.Text
+        hud.labelText = "Disconnected from Device"
+        hud.hide(true, afterDelay: 1.0)
+    }
+    
+    func nrfDidUpdateStatus(nrfManager: NRFManager, state: CBCentralManagerState) {
+        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        hud.mode = MBProgressHUDMode.Text
+        if(state == .PoweredOn){
+            hud.labelText = "Bluetooth Enabled"
+        } else if (state == .PoweredOff){
+            hud.labelText = "Bluetooth Disabled"
+        }
+        hud.hide(true, afterDelay: 1.0)
     }
 }
 

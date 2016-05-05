@@ -2,22 +2,30 @@
 //  LevelSettingsViewController.swift
 //  BeeBop
 //
-//  Created by Robert Lasell on 4/25/16.
+//  Created by Rob Lasell on April 25 2016
 //  Copyright © 2016 Tufts. All rights reserved.
+//
+//  View Controller that allows the user to adjust the difficulty
+//  level of BeeBop
 //
 
 import UIKit
+
 
 class LevelSettingsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     let defaults = NSUserDefaults.standardUserDefaults()
     
-    @IBOutlet weak var levelPicker: UIPickerView!
+    // a list of available difficulty levels from 0 to maxLevel
     var pickerData = [Int]()
     var maxLevel = 0
+    // the user's chosen difficulty level
     var userLevel = 0
     
+    // storyboard outlets
+    @IBOutlet weak var levelPicker: UIPickerView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,38 +43,30 @@ class LevelSettingsViewController: UIViewController, UIPickerViewDelegate, UIPic
         super.didReceiveMemoryWarning()
     }
     
-    // The number of columns of data
+    
+    // MARK: - Picker view data source
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    // The number of rows of data
+    // number of available difficulty levels
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return maxLevel
     }
     
-    // The data to return for the row and component (column) that's being passed in
+    // level number to return for the row that's passed in
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return String(row + 1)
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // Nothing to do if they select a row except wait for them to hit "Save"
+        // nothing to do if they select a row except wait for them to hit "Save"
     }
 
-    // gets called when you press the save button
+    // saves level to NSUserDefaults when the user presses the save button
     @IBAction func buttonPressed (sender : AnyObject) -> Void {
         userLevel = levelPicker.selectedRowInComponent(0) + 1
         defaults.setInteger(userLevel, forKey: userLevelKey)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 }

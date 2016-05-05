@@ -1,95 +1,111 @@
 //
 //  ScannerViewController.swift
-//  HM10 Serial
 //
-//  Created by Alex and edited by Rob and Ari for use with BeeBop
+//  Created by Alex
+//
 //  Copyright (c) 2015 Balancing Rock. All rights reserved.
 //
+//  Modified for use with BeeBop by Rob Lasell and Ari Scourtas on May 5 2016
+//  * Thanks to Sean Deneen for his help adapting this to use NRFManager *
+//
+//  View Controller that allows the user to view and connect to available
+//  bluetooth-capable devices
+//
+// TODO: connect rescan button with tryAgain method
 
 import UIKit
 import CoreBluetooth
 
-class ScannerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, DZBluetoothSerialDelegate {
 
-   
-//MARK: IBOutlets
+class ScannerViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NRFManagerDelegate {
+
+    // peripheral devices that have been discovered
+    var peripherals: [CBPeripheral] = []
+    // peripheral the user has selected in the table view
+    var selectedPeripheral: CBPeripheral?
+
+    var progressHUD: MBProgressHUD?
     
+    // timers to determine when an attempt to scan or connect has timed out
+    var scanTimer: NSTimer = NSTimer()
+    var connectionTimer: NSTimer = NSTimer()
+    
+    // storyboard outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var rescanButton: UIBarButtonItem!
     
-//MARK: Scanner Variables
-    
-    /// The peripherals that have been discovered (no duplicates and sorted by asc RSSI)
-    //var peripherals: [(peripheral: CBPeripheral, RSSI: Float)] = []
-    var peripherals: [CBPeripheral] = []
-    /// The peripheral the user has selected
-    var selectedPeripheral: CBPeripheral?
-    
-    /// Progress hud shown
-    var progressHUD: MBProgressHUD?
-    
-    
-//MARK: Functions
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // rescanButton is only enabled when we've stopped scanning
+        // rescan button is only enabled when we've stopped scanning
         rescanButton.enabled = false
 
-        // remove extra searator lines (looks better)
+        // remove extra separator lines for aesthetic purposes
         tableView.tableFooterView = UIView(frame: CGRectZero)
 
-        // tell the delegate to notificate US instead of the previous view if something happens
-        serial.delegate = self
+        nrfManager.delegate = self
+        
         tableView.delegate = self
         tableView.dataSource = self
         
-        if (serial.connectedPeripheral != nil) {
-            peripherals.append(serial.connectedPeripheral!)//peripheral: serial.connectedPeripheral., RSSI: RSSI.floatValue)
-            //peripherals.sortInPlace { $0.RSSI < $1.RSSI }
+        // display the connected device (does not happen by default)
+        if (nrfManager.connectionStatus == .Connected) {
+            peripherals.append(nrfManager.currentPeripheral!.getCBPeripheral())
         }
         
-        if serial.state != .PoweredOn {
-            // TODO handle bluetooth not being on
-            print("Bluetooth not on")
-            return
-        }
+        // start scanning for devices
+        nrfManager.scanForPeripherals()
         
-        // start scanning and schedule the time out
-        serial.scanForPeripherals()
-        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(ScannerViewController.scanTimeOut), userInfo: nil, repeats: false)
+        // schedule the scan timeout
+        scanTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(ScannerViewController.scanTimeout), userInfo: nil, repeats: false)
     }
     
-    // For when back button is pressed
     override func viewWillDisappear(animated : Bool) {
         super.viewWillDisappear(animated)
         
         if (self.isMovingFromParentViewController()){
-            // We know back button was pressed
-            serial.stopScanning()
+            nrfManager.stopScanning()
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    /// Should be called 10s after we've begun scanning
-    func scanTimeOut() {
-                
-        // timeout has occurred, stop scanning and give the user the option to try again
-        serial.stopScanning()
-        rescanButton.enabled = true
-        // TODO handle finish scanning (with popup?)
-    }
     
-    /// Should be called 10s after we've begun connecting
-    func connectTimeOut() {
+    // MARK: - IBActions
+    
+    // called when the user presses the rescan button
+    @IBAction func tryAgain(sender: AnyObject) {
+        // empty array and start again
+        peripherals = []
         
-        // don't if we've already connected
-        if let _ = serial.connectedPeripheral {
+        // display the connected device (does not happen by default)
+        if (nrfManager.connectionStatus == .Connected) {
+            peripherals.append(nrfManager.currentPeripheral!.getCBPeripheral())
+        }
+        
+        tableView.reloadData()
+
+        // begin scanning again
+        rescanButton.enabled = false
+        nrfManager.scanForPeripherals()
+        
+        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(ScannerViewController.scanTimeout), userInfo: nil, repeats: false)
+    }
+    
+    
+    // MARK: - Timeouts
+    
+    // scanning should time out if no devices are discovered within 10s
+    func scanTimeout() {
+        nrfManager.stopScanning()
+        // timeout has occurred, stop scanning and give the user the option to try again
+        rescanButton.enabled = true
+        
+        // don't time out if we're already connected
+        if nrfManager.connectionStatus == .Connected {
             return
         }
         
@@ -97,11 +113,27 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
             hud.hide(false)
         }
         
-        if let per = selectedPeripheral {
-            serial.cancelPeripheralConnection(per)
-            selectedPeripheral = nil
+        // display hud message to user
+        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        hud.mode = MBProgressHUDMode.Text
+        hud.labelText = "No devices detected"
+        hud.hide(true, afterDelay: 2)
+    }
+    
+    // connecting should time out if it does not succeed within 10s
+    func connectionTimeout() {
+        // don't time out if we're already connected
+        if nrfManager.connectionStatus == .Connected {
+            return
         }
         
+        if let hud = progressHUD {
+            hud.hide(false)
+        }
+        
+        selectedPeripheral = nil
+        
+        // display hud message to user
         let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
         hud.mode = MBProgressHUDMode.Text
         hud.labelText = "Failed to connect"
@@ -109,171 +141,95 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     
-//MARK: UITableViewDataSource
+    // MARK: - UITableViewDataSource
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
+    // number of detected peripherals
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       // print(peripherals.count)
         return peripherals.count
     }
     
+    // cell to return for each peripheral in the table
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // return a cell with the peripheral name as text in the label
         let cell = tableView.dequeueReusableCellWithIdentifier("BluetoothDeviceCell")!
-        //let label = cell.viewWithTag(1) as! UILabel!
-        //label.text = peripherals[indexPath.row].peripheral.name
-        if (peripherals[indexPath.row].name/*peripheral.*/ == "HMSoft") {
-            cell.textLabel!.text = "BeeBop"
-        } else {
-            cell.textLabel!.text = peripherals[indexPath.row].name/*peripheral.*/
-        }
+        cell.textLabel!.text = peripherals[indexPath.row].name
         
-        if (peripherals[indexPath.row]/*.peripheral*/ == selectedPeripheral ||
-            (serial.connectedPeripheral != nil && peripherals[indexPath.row].name == serial.connectedPeripheral!.name)) {//(serial.connectedPeripheral != nil && peripherals[indexPath.row].peripheral.name == serial.connectedPeripheral!.name) {
+        // list the connected device as connected and the others as not connected
+        if (nrfManager.currentPeripheral != nil && peripherals[indexPath.row].name == nrfManager.currentPeripheral!.getPeripheralName()) {
             cell.detailTextLabel?.text = "Connected"
         } else {
-            //print("HERE")
-            if (serial.connectedPeripheral != nil) {
-                //print(serial.connectedPeripheral!.name)
-            } else {
-                //print("NO NAME!")
-            }
             cell.detailTextLabel?.text = "Not Connected"
         }
-        //print (peripherals[indexPath.row].peripheral.name)
+
         return cell
     }
     
     
-//MARK: UITableViewDelegate
+    // MARK: UITableViewDelegate
     
+    // called when the user selects a peripheral;
+    // connects if the peripheral is not already connected, otherwise disconnects
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        // the user has selected a peripheral, so stop scanning and proceed to the next view
-        //a "connecting" popup with spinning wheel, returns you to home
-        serial.stopScanning()
-        selectedPeripheral = peripherals[indexPath.row]//.peripheral
-        serial.connectToPeripheral(selectedPeripheral!)
-        progressHUD = MBProgressHUD.showHUDAddedTo(view, animated: true)
-        progressHUD!.labelText = "Connecting"
+        // the user has selected a peripheral
+        selectedPeripheral = peripherals[indexPath.row]
         
-        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(ScannerViewController.connectTimeOut), userInfo: nil, repeats: false)
-        
-        tableView.reloadData()
-    }
-    
-    
-//MARK: DZBluetoothSerialDelegate
-    
-    func serialHandlerDidDiscoverPeripheral(peripheral: CBPeripheral, RSSI: NSNumber) {
-        // check whether it is a duplicate
-        for existing in peripherals {
-            if existing.identifier/*peripheral.*/ == peripheral.identifier { return }
-        }
-        
-        //print("in serialHandlerDidDiscover...")
-        
-        // add to the array, next sort & reload if the device is named
-        //if (peripheral.name != nil) {
-        if (peripheral.name != nil) {
-            peripherals.append(/*peripheral: */peripheral)//, RSSI: RSSI.floatValue)
-            //peripherals.sortInPlace { $0.RSSI < $1.RSSI }
-        }
-
-        //print("peripheral to be added", peripheral)
-        //print(peripherals)
-        
-        tableView.reloadData()
-    }
-    
-    func serialHandlerDidFailToConnect(peripheral: CBPeripheral, error: NSError?) {
-        
-        if let hud = progressHUD {
-            hud.hide(false)
-        }
-        
-        if (peripheral == selectedPeripheral) {
-            selectedPeripheral = nil
-        }
-        
-        rescanButton.enabled = true
-                
-        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
-        hud.mode = MBProgressHUDMode.Text
-        hud.labelText = "Failed to connect"
-        hud.hide(true, afterDelay: 1.0)
-    }
-    
-    func serialHandlerDidDisconnect(peripheral: CBPeripheral, error: NSError?) {
-        
-        if let hud = progressHUD {
-            hud.hide(false)
-        }
-        
-        if (peripheral == selectedPeripheral) {
-            selectedPeripheral = nil
-        }
-        
-        rescanButton.enabled = true
-        
-        deviceStatus = .Disconnected
-        
-        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
-        hud.mode = MBProgressHUDMode.Text
-        hud.labelText = "Failed to connect"
-        hud.hide(true, afterDelay: 1.0)
-
-    }
-    
-    func serialHandlerIsReady(peripheral: CBPeripheral) {
-        
-        if let hud = progressHUD {
-            hud.hide(false)
-        }
-        
-        // Initial connection to device, so change status
-        deviceStatus = .Deactivated
-        
-        NSNotificationCenter.defaultCenter().postNotificationName("reloadStartViewController", object: self)
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    func serialHandlerDidChangeState(newState: CBCentralManagerState) {
-        
-        if let hud = progressHUD {
-            hud.hide(false)
-        }
-        
-        if newState != .PoweredOn {
-            rescanButton.enabled = false
-            // TODO handle bluetooth not being turned on
-            print("BlueTooth not on")
-        } else {
-            rescanButton.enabled = true
-            // title = "Ready to scan"
-            // TODO handle "Ready to scan" (whatever that means)
-            print("Ready to rescan")
+        if (nrfManager.currentPeripheral?.getPeripheralName() != selectedPeripheral!.name) {
+            nrfManager.connectPeripheral(selectedPeripheral!)
             
+            progressHUD = MBProgressHUD.showHUDAddedTo(view, animated: true)
+            progressHUD!.labelText = "Connecting"
+            
+            connectionTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(ScannerViewController.connectionTimeout), userInfo: nil, repeats: false)
+        } else {
+            nrfManager.disconnect()
         }
     }
     
     
+    // MARK: - NRFManagerDelegate
     
-
-//MARK: IBActions
-    @IBAction func tryAgain(sender: AnyObject) {
-        // empty array an start again
-        peripherals = []
+    // called every time the NRFManager discovers an available bluetooth device
+    func nrfDidFindPeripheral(peripheral: CBPeripheral) {
+        // do not display duplicates
+        for existing in peripherals {
+            if existing.identifier == peripheral.identifier {
+                return
+            }
+        }
+        
+        // do not display unnamed devices
+        if (peripheral.name != nil) {
+            peripherals.append(peripheral)
+        }
+        
         tableView.reloadData()
-        rescanButton.enabled = false
-        // title = "Scanning ..." TODO
-        serial.scanForPeripherals()
-        NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(ScannerViewController.scanTimeOut), userInfo: nil, repeats: false)
     }
     
+    // called when the app successfully connects to a bluetooth device
+    func nrfDidConnect(nrfManager: NRFManager) {
+        if let hud = progressHUD {
+            hud.hide(false)
+        }
+        
+        connectionTimer.invalidate()
+        
+        // TODO - remove?
+        //NSNotificationCenter.defaultCenter().postNotificationName("reloadStartViewController", object: self)
+        //dismissViewControllerAnimated(true, completion: nil)
+        
+        tableView.reloadData()
+    }
+    
+    // called when the app successfully disconnects from a bluetooth device
+    func nrfDidDisconnect(nrfManager: NRFManager) {
+        //TODO - remove?
+        //connectionTimer.invalidate()
+        
+        tableView.reloadData()
+    }
 }
