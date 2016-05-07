@@ -9,4 +9,4 @@ We have been having some issues with storyboards - if elements are not displayin
 
 This is a brief overview of the main files associated with the iOS app, provided to ease perusal of the project.
 
-..* ViewController.swift
+  * ViewController.swift
