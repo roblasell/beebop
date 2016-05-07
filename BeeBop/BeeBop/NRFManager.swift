@@ -5,7 +5,7 @@
 //  Originally created by Michael Teeuw on 31-07-14.
 //  Copyright (c) 2014 Michael Teeuw. All rights reserved.
 //
-//  Modified for use with BeeBop by Rob Lasell and Ari Scourtas on May 4 2016
+//  Modified for use with BeeBop by Rob Lasell, Ari Scourtas, and Sean Deneen on May 4 2016
 //
 
 import Foundation

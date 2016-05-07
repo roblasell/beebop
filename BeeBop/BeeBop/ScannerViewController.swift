@@ -104,8 +104,8 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
         // timeout has occurred, stop scanning and give the user the option to try again
         rescanButton.enabled = true
         
-        // don't time out if we're already connected
-        if nrfManager.connectionStatus == .Connected {
+        // don't display message if we're already connected
+        if (nrfManager.connectionStatus == .Connected || peripherals != []) {
             return
         }
         

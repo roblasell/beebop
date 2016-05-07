@@ -16,6 +16,11 @@ class LevelSettingsViewController: UIViewController, UIPickerViewDelegate, UIPic
 
     let defaults = NSUserDefaults.standardUserDefaults()
     
+    // names of the difficulty levels, for display purposes only
+    let levelNames = ["      Easy", "    Medium", "      Hard", "Mingsanity"]
+    // alternate level names, just for fun
+    //let levelNames = ["Humanities", "Comp 11", "Comp 40", "Mobile Medical Devices"]
+    
     // a list of available difficulty levels from 0 to maxLevel
     var pickerData = [Int]()
     var maxLevel = 0
@@ -57,7 +62,12 @@ class LevelSettingsViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     // level number to return for the row that's passed in
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(row + 1)
+        var levelName = String(row + 1)
+        
+        // this line can be commented out to display only the level number
+        levelName += " - " + levelNames[row]
+        
+        return levelName
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
