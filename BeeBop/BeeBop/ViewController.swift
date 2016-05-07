@@ -363,7 +363,7 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
     
     //send data string to bluetooth peripheral
     func sendToDevice(msg: String) {
-        //print("sending:", msg, "to device") // TEST
+        print("sending:", msg, "to device") // TEST
         nrfManager.writeString(msg)
     }
     
