@@ -218,18 +218,11 @@ class ScannerViewController: UIViewController, UITableViewDataSource, UITableVie
         
         connectionTimer.invalidate()
         
-        // TODO - remove?
-        //NSNotificationCenter.defaultCenter().postNotificationName("reloadStartViewController", object: self)
-        //dismissViewControllerAnimated(true, completion: nil)
-        
         tableView.reloadData()
     }
     
     // called when the app successfully disconnects from a bluetooth device
     func nrfDidDisconnect(nrfManager: NRFManager) {
-        //TODO - remove?
-        //connectionTimer.invalidate()
-        
         tableView.reloadData()
     }
 }

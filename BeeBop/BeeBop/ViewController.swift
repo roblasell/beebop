@@ -121,11 +121,11 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
             // level 3
             [0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,
              1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,
-             1,0,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+             1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             // level 4
             [0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,1,0,
              1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-             1,1,1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0]
+             1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
         ],
         [ // more songs would go here
             // level 1
@@ -505,7 +505,6 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
             
             // if paused, need to start timer and song
             if (paused) {
-                // TODO: song skipping happens here
                 // set the song player to the time of the current beat, just in case
                 songPlayer?.currentTime = secPerBeat * Double(beatCounter)
                 songPlayer?.play()
