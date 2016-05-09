@@ -118,64 +118,57 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
     @IBOutlet weak var songPicker: UIPickerView!
     
     // parallel array of arrays of hard-coded sequences of beats (1) and rests(0) for each song;
-    // inner arrays correspond to the challenge levels for a given song
-    var beatSequences = [
-        [ // SpongeRon Mingpants
-            // TODO: level 1 beat sequence is off
-            // level 1
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,
-             0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,
-             0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            // level 2
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,
-             0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,
-             0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            // level 3
-            [0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,
-             1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,
-             1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-            // level 4
-            [0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,1,0,
-             1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-             1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-        ],
-        [[],[],[],[]],
-        [ // Ron, Ron, Ron Your Boat
-            // level 1
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
-             1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
-             0,1,0,0,0,0,0,0,0,0,0,0,0,0],
-            // level 2
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,
-             1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,
-             1,0,0,0,1,0,1,0,0,0,0,0,0,0],
-            // level 3
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,
-             1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,
-             1,0,1,0,1,0,1,0,0,0,0,0,0,0],
-            // level 4
-            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,
-             1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,
-             1,1,1,1,1,0,1,0,0,0,0,0,0,0]
-        ],
-        [ // more songs would go here
-            // level 1
-            [],
-            // level 2
-            [],
-            // level 3
-            [],
-            // level 4 (hard)
-            []
-        ]
-        // etc
+    // inner arrays correspond to the challenge levels for a given song;
+    // note that we have separated out the arrays for each individual song because XCode 7
+    // struggles with indexing the project files if there are too many nested arrays
+    var beatSequences:[[[Int]]] = []
+    var spongeBeats = [ // SpongeRon Mingpants
+        // level 1
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,
+            0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
+            0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        // level 2
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,
+            0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,
+            0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        // level 3
+        [0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,
+            1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,
+            1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        // level 4
+        [0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,1,0,
+            1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     ]
+    var ronBeats = [ // Ron, Ron, Ron Your Boat
+        // level 1
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
+            1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
+            0,1,0,0,0,0,0,0,0,0,0,0,0,0],
+        // level 2
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,
+            1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,
+            1,0,0,0,1,0,1,0,0,0,0,0,0,0],
+        // level 3
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,
+            1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,
+            1,0,1,0,1,0,1,0,0,0,0,0,0,0],
+        // level 4
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,
+            1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,
+            1,1,1,1,1,0,1,0,0,0,0,0,0,0]
+    ]
+    var emptyBeats:[[Int]] = [[],[],[],[]]
     
     
     // MARK: - ViewController initialization
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        beatSequences.append(spongeBeats)
+        beatSequences.append(emptyBeats)
+        beatSequences.append(ronBeats)
         
         nrfManager.delegate = self
 
@@ -187,8 +180,6 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         // initialize the song to the first song in the picker
         currentSong = songs[0]
         currentSongIndex = 0
-        
-        print("dayofweek is:", NSDate().dayOfWeek())
         
         songPlayer = AVAudioPlayer()
         songPicker.delegate = self
@@ -372,7 +363,6 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         //if the song is playing and we have not reached the end of the song
         if (playing && beatCounter < beatSequence.count) {
             if (beatSequence[beatCounter] == 1) { //beat was a 1 i.e. not a rest
-                print("BEAT:", beatCounter) // TEST output
                 if (!waiting) { // enter a waiting state if not already waiting
                     // chooses a random drum from the currently active drums
                     let drum = randomDrum()
@@ -384,13 +374,11 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
                     mostRecentBeat = beatCounter
                     beatCounter += 1
                 } else { // pause song if waiting for confirmation from bt device
-                    print("waiting for response for beat:", mostRecentBeat)
                     timer.invalidate()
                     paused = true
                     songPlayer?.pause()
                 }
             } else { // beat was a 0 i.e. a rest
-                print("rest:", beatCounter) // TEST output
                 beatCounter += 1
             }
         } else { // song stopped playing for whatever reason
@@ -401,7 +389,6 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
     
     //send data string to bluetooth peripheral
     func sendToDevice(msg: String) {
-        print("sending:", msg, "to device") // TEST
         nrfManager.writeString(msg)
     }
     
@@ -462,9 +449,6 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
     
     // write session data to a plist file
     func saveData() {
-        let currentDate = NSDate()
-        print(currentDate)
-        
         // get path for the data file
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         let documentsDirectory = paths.objectAtIndex(0) as! NSString
@@ -484,9 +468,6 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         let documentsDirectory = paths.objectAtIndex(0) as! NSString
         let path = documentsDirectory.stringByAppendingPathComponent(sessionDataFilename)
-        
-        print(path)
-        
         
         let fileManager = NSFileManager.defaultManager()
         // check if file exists
@@ -520,6 +501,7 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         sessionData = NSMutableArray(contentsOfFile: path)!
 
         // TEST: print the loaded data
+        // This is a very useful chunk of code for debugging. Do not delete.
         /*print("TEST SESSION DATA BEGINS HERE")
         
         let testArray = NSArray(contentsOfFile: path)
@@ -552,7 +534,6 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         } else if (combineMessages(string!)) {
             // store the message for its associated beat in hitSequence
             hitSequence[mostRecentBeat] = messageSoFar
-            print("received message:", messageSoFar) // TEST
             
             waiting = false
             messageSoFar = ""
@@ -620,56 +601,6 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         }
         
         hud.hide(true, afterDelay: 1.0)
-    }
-    
-    // MARK: - TEST METHODS
-    // TODO: delete these when no longer necessary
-    
-    func makeFakeData() {
-        sessionData = NSMutableArray()
-        makeFakeSession1()
-        sessionData.addObject(session)
-        makeFakeSession2()
-        sessionData.addObject(session)
-    }
-    
-    func makeFakeSession1() {
-        session = NSMutableDictionary()
-        session.setObject(tempos[0], forKey: tempoDataKey)
-        session.setObject(3, forKey: levelDataKey)
-        session.setObject(pickerSongs[0], forKey: songNameDataKey)
-        session.setObject(defaults.arrayForKey(drumsKey) as! [Int], forKey: drumsDataKey)
-        session.setObject(beatSequences[0][2], forKey: beatSequenceDataKey)
-        
-        let fakeHitSequence = ["","","","","","","","",
-                               "","","","","","","","",
-                               "","","","","","","","",
-                               "0 570","","3 1 1200","","1 3 3 3 0 4000","1 1000","1 0 2000","3 750",
-                               "0 570","","3 1 1200","","1 3 3 3 0 4000","1 1000","1 0 2000","3 750",
-                               "0 570","","3 1 1200","","1 3 3 3 0 4000","1 1000","1 0 2000","3 750",
-                               "0 570","","3 1 1200","","1 3 3 3 0 4000","1 1000","1 0 2000","3 750",
-                               "1 320","3 450","3 0 2400","1 1300","1 320","3 450","3 0 2400","1 1300",
-                               "1 320","3 450","3 0 2400","1 1300","1 320","3 450","","1 1300",
-                               "0 1 0 0 1 3 5738","","",""]
-        
-        session.setObject(fakeHitSequence, forKey: hitSequenceDataKey)
-        
-        
-        
-    }
-    
-    func makeFakeSession2() {
-        session = NSMutableDictionary()
-        session.setObject(80, forKey: tempoDataKey)
-        session.setObject(1, forKey: levelDataKey)
-        session.setObject(pickerSongs[1], forKey: songNameDataKey)
-        session.setObject(defaults.arrayForKey(drumsKey) as! [Int], forKey: drumsDataKey)
-        
-        let fakeBeatSequence = [0,0,1,1,1,0,1,0,1,0]
-        session.setObject(fakeBeatSequence, forKey: beatSequenceDataKey)
-        
-        let fakeHitSequence = ["","","0 1750","1 0 3 3457","3 1 2345","","0 0 0 1 244","","1 3 3245",""]
-        session.setObject(fakeHitSequence, forKey: hitSequenceDataKey)
     }
 }
 

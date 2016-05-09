@@ -11,7 +11,6 @@
 //  View Controller that allows the user to view and connect to available
 //  bluetooth-capable devices
 //
-// TODO: connect rescan button with tryAgain method
 
 import UIKit
 import CoreBluetooth

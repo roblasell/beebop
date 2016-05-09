@@ -65,17 +65,20 @@ This is a description of the main files associated with the iOS app, provided to
 
    * _ScannerViewController.swift_
 
-      TODO
+      This view controller manages the page where the user can see a list of available bluetooth devices, and connect to or disconnect from a device of their choosing. 
 
 ##### Data Pages
 
    * _DataPageViewController.swift_
 
-      TODO
+      Takes the data stored in the plist and determines average values of hit force, percent correct drum hits, and reaction time
+      per day to be displayed in the "Week" graophs. The logic for the Month and Year data displays has not yet been written,
+      but everything is in place to do so. Currently the Month and Year graphs display dummy data hardcoded in.
 
    * _GraphView.swift_
 
-      TODO
+      Defines a subclass of UIView that draws a UIView as a graph with a colored gradient; gradient colors are set at runtime using
+      the Interface Builder.
 
    * _SessionsPageViewController.swift_, _DateViewController.swift_, _SessionViewController.swift_
 
@@ -85,7 +88,7 @@ This is a description of the main files associated with the iOS app, provided to
 
    * _NRFManager.swift_
 
-      TODO
+      This is a modified version of a class that we pulled from the web for handling interactions with bluetooth devices. Primarily, it is used for scanning for available devices, connecting to and disconnecting from devices, and sending messages to and from a bluetooth device.
 
 ### Notes and Issues
 
