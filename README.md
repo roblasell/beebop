@@ -45,45 +45,45 @@ This is a description of the main files associated with the iOS app, provided to
 
 ##### Main Page
 
-   * ViewController.swift
+   * _ViewController.swift_
 
       This is the view controller for the main page, where users can choose a song to play and play that song. This file primarily contains code relating to what we call the "drum logic" (that is, tracking the tempo and beat to send messages to and from the drum peripheral) and the storage and loading of long-term data in a plist file.
 
 ##### Settings Pages
 
-   * SettingsTableViewController.swift
+   * _SettingsTableViewController.swift_
 
       This is the view controller for the settings table. The associated view is simply a table containing the different available settings.
 
-   * LevelSettingsViewController.swift
+   * _LevelSettingsViewController.swift_
 
       On the page managed by this view controller, the user chooses a difficulty level from the table of options and saves their choice to NSUserDefaults with the Save button.
 
-   * ActiveDrumsTableViewController.swift
+   * _ActiveDrumsTableViewController.swift_
 
       Pretty simple, the user uses each table view cell to toggle the different drums on or off, and saves their choices to NSUserDefaults with the Save button.
 
-   * ScannerViewController.swift
+   * _ScannerViewController.swift_
 
       TODO
 
 ##### Data Pages
 
-   * DataPageViewController.swift
+   * _DataPageViewController.swift_
 
       TODO
 
-   * GraphView.swift
+   * _GraphView.swift_
 
       TODO
 
-   * SessionsPageViewController.swift, DateViewController.swift, SessionViewController.swift
+   * _SessionsPageViewController.swift_, _DateViewController.swift_, _SessionViewController.swift_
 
       These files are mostly unimplemented, and simply exist as dummy pages to show where future updates might go in the app.
 
 ##### Utility Files
 
-   * NRFManager.swift
+   * _NRFManager.swift_
 
       TODO
 
