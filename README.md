@@ -43,13 +43,13 @@ The iOS side of the project has three main modes: playing the game, choosing set
 
 This is a description of the main files associated with the iOS app, provided to ease perusal of the project.
 
-   ##### Main Page
+##### Main Page
 
    * ViewController.swift
 
       This is the view controller for the main page, where users can choose a song to play and play that song. This file primarily contains code relating to what we call the "drum logic" (that is, tracking the tempo and beat to send messages to and from the drum peripheral) and the storage and loading of long-term data in a plist file.
 
-   ##### Settings Pages
+##### Settings Pages
 
    * SettingsTableViewController.swift
 
@@ -67,7 +67,7 @@ This is a description of the main files associated with the iOS app, provided to
 
       TODO
 
-   ##### Data Pages
+##### Data Pages
 
    * DataPageViewController.swift
 
@@ -77,7 +77,11 @@ This is a description of the main files associated with the iOS app, provided to
 
       TODO
 
-   ##### Utility Files
+   * SessionsPageViewController.swift, DateViewController.swift, SessionViewController.swift
+
+      These files are mostly unimplemented, and simply exist as dummy pages to show where future updates might go in the app.
+
+##### Utility Files
 
    * NRFManager.swift
 
