@@ -43,13 +43,45 @@ The iOS side of the project has three main modes: playing the game, choosing set
 
 This is a description of the main files associated with the iOS app, provided to ease perusal of the project.
 
+   ##### Main Page
+
    * ViewController.swift
 
       This is the view controller for the main page, where users can choose a song to play and play that song. This file primarily contains code relating to what we call the "drum logic" (that is, tracking the tempo and beat to send messages to and from the drum peripheral) and the storage and loading of long-term data in a plist file.
 
-      - SettingsTableViewController.swift
+   ##### Settings Pages
 
-         This is the view controller for the 
+   * SettingsTableViewController.swift
+
+      This is the view controller for the settings table. The associated view is simply a table containing the different available settings.
+
+   * LevelSettingsViewController.swift
+
+      On the page managed by this view controller, the user chooses a difficulty level from the table of options and saves their choice to NSUserDefaults with the Save button.
+
+   * ActiveDrumsTableViewController.swift
+
+      Pretty simple, the user uses each table view cell to toggle the different drums on or off, and saves their choices to NSUserDefaults with the Save button.
+
+   * ScannerViewController.swift
+
+      TODO
+
+   ##### Data Pages
+
+   * DataPageViewController.swift
+
+      TODO
+
+   * GraphView.swift
+
+      TODO
+
+   ##### Utility Files
+
+   * NRFManager.swift
+
+      TODO
 
 ### Notes and Issues
 
