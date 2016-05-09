@@ -14,6 +14,16 @@ import UIKit
 import AVFoundation
 import CoreBluetooth
 
+// an extension to NSDate that allows us to easily get the day of the week;
+// days run from 0 (Sunday) to 6 (Saturday)
+extension NSDate {
+    func dayOfWeek() -> Int? {
+        guard
+            let cal: NSCalendar = NSCalendar.currentCalendar(),
+            let comp: NSDateComponents = cal.components(.Weekday, fromDate: self) else { return nil }
+        return comp.weekday - 1
+    }
+}
 
 // MARK: - Global data
 
@@ -36,6 +46,7 @@ let songNameDataKey     = "song_name"
 let drumsDataKey        = "drums"
 let beatSequenceDataKey = "beat_sequence"
 let hitSequenceDataKey  = "hit_sequence"
+let dateDataKey         = "date"
 
 // plist file used to store session data
 let sessionDataFilename = "sessiondata.plist"
@@ -63,15 +74,16 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
     var session = NSMutableDictionary()
     
     // song names to choose from
-    var pickerSongs = ["SpongeRon Mingpants", "A Very Ming Chow Christmas", "Ron Ron Ron Your Boat", "I'm Ming and You're Chow", "Do the Ming'n'Ron Dance", "Ron Top of Old Smokey", "Hello, It's Ming", "Space Rondity", "We 3 Mings", "You're the Only Ron for Me", "Doo Wop (That Ming)", "The Lasser of Two Evils", "What a Day for a Mobile Medical Device", ""]
+    var pickerSongs = ["SpongeRon Mingpants", "A Very Ming Chow Christmas", "Ron, Ron, Ron Your Boat", "I'm Ming and You're Chow", "Do the Ming'n'Ron Dance", "Ron Top of Old Smokey", "Hello, It's Ming", "Space Rondity", "We 3 Mings", "You're the Only Ron for Me", "Doo Wop (That Ming)", "The Lasser of Two Evils", "What a Day for a Mobile Medical Device", ""]
     // songs for squares
     // let boringSongs = ["Song1", "Song2", "Song3", "Song4", "Song5", "Song6", "Song7"]
     
     // array of songs corresponding to pickerSongs
-    // like tempos, currently only contains one entry (for SpongeRon Mingpants)
+    // like tempos, currently only contains two actual entries
+    // (for SpongeRon Mingpants and Ron, Ron, Ron Your Boat)
     var songs: [NSURL] = [NSURL]()
     // parallel array of base tempos for each song
-    var tempos = [120]
+    var tempos = [120, 0, 110]
     
     /* data related to the playing of the audio */
     var songPlayer: AVAudioPlayer?
@@ -106,10 +118,10 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
     @IBOutlet weak var songPicker: UIPickerView!
     
     // parallel array of arrays of hard-coded sequences of beats (1) and rests(0) for each song;
-    // inner arrays correspond to the challenge levels
-    // for a given song
+    // inner arrays correspond to the challenge levels for a given song
     var beatSequences = [
         [ // SpongeRon Mingpants
+            // TODO: level 1 beat sequence is off
             // level 1
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,
              0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,
@@ -121,11 +133,30 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
             // level 3
             [0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,
              1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,
-             1,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+             1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             // level 4
             [0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,1,1,1,1,0,
              1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
              1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        ],
+        [[],[],[],[]],
+        [ // Ron, Ron, Ron Your Boat
+            // level 1
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
+             1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,
+             0,1,0,0,0,0,0,0,0,0,0,0,0,0],
+            // level 2
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,
+             1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,
+             1,0,0,0,1,0,1,0,0,0,0,0,0,0],
+            // level 3
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,
+             1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,
+             1,0,1,0,1,0,1,0,0,0,0,0,0,0],
+            // level 4
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,
+             1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,0,1,0,1,0,1,1,1,1,1,0,1,0,
+             1,1,1,1,1,0,1,0,0,0,0,0,0,0]
         ],
         [ // more songs would go here
             // level 1
@@ -157,6 +188,8 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         currentSong = songs[0]
         currentSongIndex = 0
         
+        print("dayofweek is:", NSDate().dayOfWeek())
+        
         songPlayer = AVAudioPlayer()
         songPicker.delegate = self
         songPicker.dataSource = self
@@ -173,11 +206,14 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
     
     // set up "songs" array to contain URLs pointing to the song mp3s
     func initializeSongURLS() {
-        // currently only contains one song, SpongeRon Mingpants
-        let path = NSBundle.mainBundle().pathForResource("SpongeRon Mingpants", ofType: "mp3")!
+        // currently only contains two songs, SpongeRon Mingpants and Ron, Ron, Ron Your Boat
+        var path = NSBundle.mainBundle().pathForResource("SpongeRon Mingpants", ofType: "mp3")!
         let spongeron = NSURL.fileURLWithPath(path)
         
-        songs = [spongeron]
+        path = NSBundle.mainBundle().pathForResource("Ron, Ron, Ron Your Boat", ofType: "mp3")!
+        let ronronron = NSURL.fileURLWithPath(path)
+        
+        songs = [spongeron, NSURL(), ronronron]
     }
     
     // initialize NSUserDefaults values for each key if they do not already exist
@@ -227,8 +263,9 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
             stopSong()
         }
         
-        // ensure that the user can only play the demonstration song, "SpongeRon MingPants"
-        if (row == 0) { // index of SRMP
+        // ensure that the user can only play the demonstration songs,
+        // "SpongeRon MingPants" and "Ron, Ron, Ron Your Boat"
+        if (row == 0 || row == 2) { // indices of SRMP or RRRYB
             currentSong = songs[row]
             currentSongIndex = row
         } else { // any other song
@@ -284,6 +321,7 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         session.setObject(pickerSongs[currentSongIndex], forKey: songNameDataKey)
         session.setObject(drums, forKey: drumsDataKey)
         session.setObject(beatSequence, forKey: beatSequenceDataKey)
+        session.setObject(NSDate(), forKey: dateDataKey)
         
         // prepare song player
         loadSongPlayer()
@@ -419,10 +457,14 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
      * --- drums         -> [int]
      * --- beat_sequence -> [int]
      * --- hit_sequence  -> [string]
+     * --- date          -> NSDate
      */
     
     // write session data to a plist file
     func saveData() {
+        let currentDate = NSDate()
+        print(currentDate)
+        
         // get path for the data file
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         let documentsDirectory = paths.objectAtIndex(0) as! NSString
@@ -442,6 +484,9 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         let documentsDirectory = paths.objectAtIndex(0) as! NSString
         let path = documentsDirectory.stringByAppendingPathComponent(sessionDataFilename)
+        
+        print(path)
+        
         
         let fileManager = NSFileManager.defaultManager()
         // check if file exists
@@ -464,26 +509,34 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
             print("sessiondata.plist already exits at path.")
             
             // uncomment to delete file from documents directory
-            // fileManager.removeItemAtPath(path, error: nil)
+            /*do {
+                try fileManager.removeItemAtPath(path)
+            } catch {
+                print("ERROR: No file to remove")
+            }*/
         }
         
         // load the file's contents into sessionData
         sessionData = NSMutableArray(contentsOfFile: path)!
 
+        // TEST: print the loaded data
+        /*print("TEST SESSION DATA BEGINS HERE")
         
-        /* TEST: print the loaded data
-        var testArray = NSArray(contentsOfFile: path)
-        if let arr = testArray {
+        let testArray = NSArray(contentsOfFile: path)
+        if testArray!.count > 0 {
             //loading values
             let session1:NSDictionary = testArray![0] as! NSDictionary
             let session1tempo = session1.objectForKey(tempoDataKey)
+            let session1hitData:[String] = session1.objectForKey(hitSequenceDataKey) as! [String]
             
-            //print("session 1 tempo is ", session1tempo)
+            print("session 1 tempo is", session1tempo)
+            print("session 1 hit sequence is:\n", session1hitData)
             //...
         } else {
             print("No data found!")
         }
-        */
+        
+        print("TEST SESSION DATA ENDS HERE")*/
     }
     
     // MARK: - NRFManagerDelegate methods
@@ -499,6 +552,7 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
         } else if (combineMessages(string!)) {
             // store the message for its associated beat in hitSequence
             hitSequence[mostRecentBeat] = messageSoFar
+            print("received message:", messageSoFar) // TEST
             
             waiting = false
             messageSoFar = ""
@@ -599,6 +653,9 @@ class ViewController: UIViewController, NRFManagerDelegate, UIPickerViewDelegate
                                "0 1 0 0 1 3 5738","","",""]
         
         session.setObject(fakeHitSequence, forKey: hitSequenceDataKey)
+        
+        
+        
     }
     
     func makeFakeSession2() {

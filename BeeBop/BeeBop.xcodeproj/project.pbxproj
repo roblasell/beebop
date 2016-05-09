@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4277E0F1CDF010A00DCBE4A /* beeBopImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D4277E0E1CDF010A00DCBE4A /* beeBopImage.jpg */; };
+		D4277E111CE07A8E00DCBE4A /* Ron, Ron, Ron Your Boat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D4277E101CE07A8E00DCBE4A /* Ron, Ron, Ron Your Boat.mp3 */; };
 		D42F0C7A1CDA86B6008D2E73 /* NRFManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42F0C791CDA86B6008D2E73 /* NRFManager.swift */; };
 		D42F0C8B1CDD8979008D2E73 /* SpongeRon Mingpants.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D42F0C8A1CDD8979008D2E73 /* SpongeRon Mingpants.mp3 */; };
 		D463DF4A1CCC28F800E75DDE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D463DF491CCC28F800E75DDE /* MBProgressHUD.m */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D4277E0E1CDF010A00DCBE4A /* beeBopImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = beeBopImage.jpg; sourceTree = "<group>"; };
+		D4277E101CE07A8E00DCBE4A /* Ron, Ron, Ron Your Boat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Ron, Ron, Ron Your Boat.mp3"; sourceTree = "<group>"; };
 		D42F0C791CDA86B6008D2E73 /* NRFManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NRFManager.swift; sourceTree = "<group>"; };
 		D42F0C8A1CDD8979008D2E73 /* SpongeRon Mingpants.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "SpongeRon Mingpants.mp3"; sourceTree = "<group>"; };
 		D463DF471CCC28F700E75DDE /* BeeBop-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BeeBop-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 		D4BA017E1CBC082E0005B9C1 /* BeeBop */ = {
 			isa = PBXGroup;
 			children = (
+				D4277E0E1CDF010A00DCBE4A /* beeBopImage.jpg */,
 				D4BA017F1CBC082E0005B9C1 /* AppDelegate.swift */,
 				D4BA01811CBC082E0005B9C1 /* ViewController.swift */,
 				D4BA01AD1CBC13C10005B9C1 /* SettingsTableViewController.swift */,
@@ -143,6 +148,7 @@
 				D4BA01861CBC082E0005B9C1 /* Assets.xcassets */,
 				D4A4A4DD1CC3F9C500CE7F4A /* spongebob.mp3 */,
 				D42F0C8A1CDD8979008D2E73 /* SpongeRon Mingpants.mp3 */,
+				D4277E101CE07A8E00DCBE4A /* Ron, Ron, Ron Your Boat.mp3 */,
 				D42F0C791CDA86B6008D2E73 /* NRFManager.swift */,
 				D463DF491CCC28F800E75DDE /* MBProgressHUD.m */,
 				D463DF481CCC28F800E75DDE /* MBProgressHUD.h */,
@@ -275,8 +281,10 @@
 			files = (
 				D4BA018A1CBC082E0005B9C1 /* LaunchScreen.storyboard in Resources */,
 				D4BA01871CBC082E0005B9C1 /* Assets.xcassets in Resources */,
+				D4277E111CE07A8E00DCBE4A /* Ron, Ron, Ron Your Boat.mp3 in Resources */,
 				D4A4A4DE1CC3F9C500CE7F4A /* spongebob.mp3 in Resources */,
 				D42F0C8B1CDD8979008D2E73 /* SpongeRon Mingpants.mp3 in Resources */,
+				D4277E0F1CDF010A00DCBE4A /* beeBopImage.jpg in Resources */,
 				D4BA01851CBC082E0005B9C1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

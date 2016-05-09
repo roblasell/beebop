@@ -17,7 +17,7 @@ class LevelSettingsViewController: UIViewController, UIPickerViewDelegate, UIPic
     let defaults = NSUserDefaults.standardUserDefaults()
     
     // names of the difficulty levels, for display purposes only
-    let levelNames = ["      Easy", "    Medium", "      Hard", "Mingsanity"]
+    let levelNames = ["Easy", "Medium", "Hard", "Mingsanity"]
     // alternate level names, just for fun
     //let levelNames = ["Humanities", "Comp 11", "Comp 40", "Mobile Medical Devices"]
     
